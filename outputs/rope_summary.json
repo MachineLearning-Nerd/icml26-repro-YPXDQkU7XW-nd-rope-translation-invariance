@@ -1,0 +1,7 @@
+{
+  "translation_invariant": true,
+  "max_err": 7.466249840604178e-15,
+  "additive_pe_not_invariant": true,
+  "nc_breaks": 10,
+  "verified": true
+}
