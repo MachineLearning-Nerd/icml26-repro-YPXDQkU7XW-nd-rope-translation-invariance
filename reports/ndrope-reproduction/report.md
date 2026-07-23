@@ -146,6 +146,7 @@ The important lineage is:
 - [Claims 3/4 route 3 diagnostic](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/claims-3-4-route-3-cross-table-protocol)
 - [Claims 3/4 mandatory falsification route](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/claims-3-4-route-4-falsification-search)
 - [release candidate](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/release-candidate-evidence-and-report)
+- [final approval candidate](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/final-approval-candidate)
 
 The live judge score remains **6/12**. The new evidence supports a conservative
 forecast of **6–8/12**, with **8/12** the best-supported possible result if the
