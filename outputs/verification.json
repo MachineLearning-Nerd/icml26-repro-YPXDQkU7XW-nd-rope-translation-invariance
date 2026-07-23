@@ -1,0 +1,29 @@
+{
+  "all_checks_pass": true,
+  "checks": {
+    "claim1_all_checks": true,
+    "claim1_trial_count": true,
+    "claim1_raw_translation_bound": true,
+    "claim1_raw_relative_bound": true,
+    "claim1_negative_control": true,
+    "claim2_all_checks": true,
+    "claim2_geometry_count": true,
+    "claim2_rank": true,
+    "claim2_economy_count": true,
+    "claim2_numeric_optimum": true,
+    "source_commit": true,
+    "source_has_no_checkpoints": true,
+    "claim5_falsification": true,
+    "claim5_shapenet_entrypoint": true,
+    "claim5_not_modelnet_entrypoint": true,
+    "claim5_16_categories_50_parts": true,
+    "honest_claim3_scope": true,
+    "honest_claim4_scope": true,
+    "honest_claim6_scope": true
+  },
+  "artifact_sha256": {
+    "outputs/claim1/claim1_report.json": "a488222f228e447148739b18240ec616fc00c9cb6a44b4a6414592109df3d97a",
+    "outputs/claim2/claim2_report.json": "75af99be54dd9cf35deab7f3be3c24cf24cfffe48a6e7cca071cc9e7af846f52",
+    "outputs/source_audit/source_audit.json": "0cf180982bf4f902c481142563d2ff2714193f5a5689580bc9eead17ee345856"
+  }
+}

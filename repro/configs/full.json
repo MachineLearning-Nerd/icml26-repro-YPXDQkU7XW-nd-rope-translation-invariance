@@ -1,0 +1,17 @@
+{
+  "claim1": {
+    "seeds": 32,
+    "trials_per_seed": 20,
+    "parseval_seeds": 64,
+    "scales": 8,
+    "theta": 100.0
+  },
+  "claim2": {
+    "max_dimension": 32,
+    "permutations_per_dimension": 256
+  },
+  "official_source": {
+    "repository": "https://github.com/BoyangL1/nD-RoPE",
+    "commit": "f2cae70760806451f5e58be4b7e3dc4d0d856a1e"
+  }
+}

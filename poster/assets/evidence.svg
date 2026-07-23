@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Six-claim nD-RoPE reproduction evidence map</title>
+  <desc id="desc">Two verified mathematical claims on the left, one falsified benchmark identity in the center, and three unresolved empirical claims on the right.</desc>
+  <rect width="1600" height="900" rx="44" fill="#F8F5F2"/>
+  <path d="M500 450 H580 M1018 450 H1098" stroke="#245C7A" stroke-width="18" stroke-linecap="round"/>
+  <path d="M554 418 L596 450 L554 482 M1072 418 L1114 450 L1072 482" fill="none" stroke="#245C7A" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <rect x="55" y="100" width="445" height="700" rx="34" fill="#FFFFFF" stroke="#245C7A" stroke-width="9"/>
+  <text x="277" y="185" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="48" font-weight="700" fill="#15394E">C1 + C2 · VERIFIED</text>
+  <text x="277" y="310" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="94" font-weight="800" fill="#245C7A">7,680</text>
+  <text x="277" y="370" text-anchor="middle" font-family="Georgia,serif" font-size="38" fill="#1A1A1A">rotary identities</text>
+  <text x="277" y="485" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="82" font-weight="800" fill="#245C7A">7,936</text>
+  <text x="277" y="542" text-anchor="middle" font-family="Georgia,serif" font-size="38" fill="#1A1A1A">symmetry trials</text>
+  <text x="277" y="650" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="64" font-weight="800" fill="#15394E">4.46e-14</text>
+  <text x="277" y="704" text-anchor="middle" font-family="Georgia,serif" font-size="34" fill="#555555">worst C1 math error</text>
+
+  <rect x="600" y="100" width="418" height="700" rx="34" fill="#FFFFFF" stroke="#C04A43" stroke-width="11"/>
+  <text x="809" y="185" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="48" font-weight="700" fill="#8D302B">C5 · FALSIFIED</text>
+  <text x="809" y="320" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="55" font-weight="800" fill="#C04A43">ShapeNetPart</text>
+  <text x="809" y="406" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="80" font-weight="800" fill="#C04A43">≠</text>
+  <text x="809" y="498" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="58" font-weight="800" fill="#C04A43">ModelNet40</text>
+  <text x="809" y="610" text-anchor="middle" font-family="Georgia,serif" font-size="30" fill="#1A1A1A">released path: 16 categories</text>
+  <text x="809" y="660" text-anchor="middle" font-family="Georgia,serif" font-size="30" fill="#1A1A1A">50 part labels · part mIoU</text>
+  <text x="809" y="724" text-anchor="middle" font-family="Georgia,serif" font-size="32" fill="#555555">0 SemanticKITTI files</text>
+
+  <rect x="1118" y="100" width="427" height="700" rx="34" fill="#FFFFFF" stroke="#245C7A" stroke-width="9"/>
+  <text x="1331" y="185" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="48" font-weight="700" fill="#15394E">C3 + C4 + C6</text>
+  <text x="1331" y="285" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="48" font-weight="800" fill="#245C7A">INCONCLUSIVE</text>
+  <text x="1331" y="414" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="104" font-weight="800" fill="#C04A43">0</text>
+  <text x="1331" y="470" text-anchor="middle" font-family="Georgia,serif" font-size="39" fill="#1A1A1A">released checkpoints</text>
+  <text x="1331" y="576" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="62" font-weight="800" fill="#15394E">396 vs 384</text>
+  <text x="1331" y="630" text-anchor="middle" font-family="Georgia,serif" font-size="34" fill="#555555">nD vs baseline width</text>
+  <text x="1331" y="710" text-anchor="middle" font-family="Georgia,serif" font-size="27" fill="#555555">exact metrics require trained models</text>
+
+  <text x="800" y="862" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="34" font-weight="600" fill="#15394E">exact certificate → executable source audit → honest replication boundary</text>
+</svg>

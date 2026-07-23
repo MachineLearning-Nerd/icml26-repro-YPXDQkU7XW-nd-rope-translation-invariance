@@ -1,0 +1,7 @@
+{
+  "claim": 5,
+  "verdict": "FALSIFIED",
+  "contract": "The conjunctive empirical statement requires the released 85.97% instance-average mIoU path to be ModelNet40 point-cloud segmentation, alongside the stated Kinetics-400 and SemanticKITTI results.",
+  "counterexample": "At the pinned official release, both executable 85.97-mIoU entrypoints load ShapeNetPart PartNormalDataset with 16 categories and 50 part labels and never call ModelNetDataLoader; the separate ModelNet40 path is classification.",
+  "assumption_match": "The counterexample audits the authors' own released training and evaluation entrypoints and metric at the exact pinned release used by the judged evidence."
+}

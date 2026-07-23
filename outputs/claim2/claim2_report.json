@@ -1,0 +1,38 @@
+{
+  "claim": 2,
+  "assessment": "verified",
+  "scope": "Equations 16, 18, 19, and 33-37; dimensions 2 through 32 plus independent optimization",
+  "geometry_cases": 31,
+  "permutation_trials": 7936,
+  "economy_cases": 64,
+  "negative_controls": 15,
+  "max_errors": {
+    "centroid_norm": 1.9877382144719217e-15,
+    "norm_spread": 5.551115123125783e-16,
+    "gram_error": 9.749145934989656e-16,
+    "frame_error": 1.5543122344752192e-15,
+    "optimal_scale": 4.438399692219264e-08
+  },
+  "base_bound": {
+    "head_dim": 128,
+    "vectors_per_scale": 4,
+    "dimension": 3,
+    "upper_bound": 207.1272488898345,
+    "theta_100_within_bound": true,
+    "theta_1e4_violates_bound": true,
+    "theta_1e6_violates_bound": true
+  },
+  "checks": {
+    "rank_coverage_all_dimensions": true,
+    "zero_centroid": true,
+    "equal_norms": true,
+    "equation_18_gram": true,
+    "equation_19_tight_frame": true,
+    "permutation_symmetry": true,
+    "all_negative_controls_detected": true,
+    "economy_optimum": true,
+    "off_optimum_costs_strictly_larger": true,
+    "table7_base_order_matches_bound": true
+  },
+  "runtime_seconds": 0.34212954199756496
+}

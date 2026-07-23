@@ -1,0 +1,136 @@
+{
+  "official_source": {
+    "commit": "f2cae70760806451f5e58be4b7e3dc4d0d856a1e",
+    "file_count": 154,
+    "checkpoint_count": 0,
+    "semantic_kitti_file_count": 0,
+    "hashes": {
+      "rope-vit-ndrope/deit/models_v2_ndRope.py": "5c53340da1742636c713a83f40eb982275134fd4e471f7da764d09a5e4a9a51a",
+      "rope-vit-ndrope/deit/models_v2_rope.py": "61cf1592955b700e613c466412347a7db7553ee0774c627551f22842ea2934d1",
+      "rope-vit-ndrope/deit/run_ndrope.bash": "221a24bd78b50631d52e778c95a05680dc9708ec55eb5dfe7409c05d030d05cb",
+      "PCT/Point-Transformers-ndrope-vector/train_partseg_ndrope.py": "23e6974d903461c326bf2c519e2a3b79faa17618bb35f4212300c609ada5f400",
+      "PCT/Point-Transformers-ndrope-vector/test_partseg.py": "89e047eb16e629fd5d69ff1a9dfb810072a2520b7eeccea327702ef36c867a5e",
+      "PCT/Point-Transformers-ndrope-vector/dataset.py": "1cf2229aa3b4e4862b520eae779f66dca398f37c3bd38424ba6037e83091ae67"
+    }
+  },
+  "claim3_imagenet": {
+    "assessment": "inconclusive_metric__released_source_has_backbone_confound",
+    "paper_metric_reproduced": false,
+    "ndrope_width": 396,
+    "ndrope_heads": 6,
+    "ndrope_head_dim": 66,
+    "baseline_width": 384,
+    "baseline_heads": 6,
+    "baseline_head_dim": 64,
+    "width_increase_percent": 3.125,
+    "standard_deit_s_width_rejected_by_official_phase_layout": true,
+    "paper_resolution_phase_shape": [
+      12,
+      6,
+      196,
+      33
+    ],
+    "paper_resolution_phase_seconds_cpu": 0.002318291997653432,
+    "reason": "No released checkpoint; nD source uses width 396 while released axial/mixed baselines use 384."
+  },
+  "claim4_rotation": {
+    "assessment": "inconclusive",
+    "paper_metric_reproduced": false,
+    "reason": "The zero-shot test requires the unreleased trained ImageNet checkpoints and validation data."
+  },
+  "claim5_cross_modal": {
+    "assessment": "falsified_as_written",
+    "paper_metrics_reproduced": false,
+    "modelnet_segmentation_subclaim": false,
+    "decisive_reason": "The released 85.97-mIoU path is ShapeNetPart part segmentation, not ModelNet40.",
+    "entrypoints_use_partnormal_dataset": true,
+    "entrypoints_use_shapenet_part_path": true,
+    "entrypoints_use_modelnet_loader": false,
+    "shapenet_mentions": 3,
+    "modelnet_mentions_in_combined_dataset_module": 4,
+    "uses_16_shape_categories": true,
+    "uses_50_part_labels": true,
+    "computes_instance_miou": true,
+    "separate_modelnet_path_is_classification": true,
+    "semantic_kitti_implementation_released": false,
+    "logic": "Claim 5 is conjunctive; one false benchmark identity falsifies it as written even though Kinetics and SemanticKITTI metrics remain untested."
+  },
+  "claim6_ablation_cost": {
+    "assessment": "partially_reproduced_from_arithmetic__empirical_ablations_unrerun",
+    "paper_metrics_reproduced": false,
+    "table6_mean_accuracy": {
+      "64x1": 72.40875,
+      "32x2": 77.55125000000001,
+      "16x4": 79.62625,
+      "6x10": 80.38125,
+      "4x16": 80.04124999999999,
+      "2x32": 71.86749999999999,
+      "1x64": 67.1725
+    },
+    "table6_best_mean": "6x10",
+    "table6_column_winners": [
+      "6x10",
+      "6x10",
+      "6x10",
+      "6x10",
+      "6x10",
+      "4x16",
+      "6x10",
+      "2x32"
+    ],
+    "table6_6x10_product": 60,
+    "fixed_positional_channels_stated_in_paper": 384,
+    "dimensions_implied_by_6x10_for_2d_simplex": 360,
+    "official_released_scale_head_layout": "11 scales x 6 heads at width 396",
+    "table7_mean_miou": {
+      "2": 78.90285714285714,
+      "100": 79.36428571428571,
+      "1e4": 76.72571428571429,
+      "1e6": 76.97857142857143
+    },
+    "table7_best_mean": "100",
+    "table8_arithmetic": {
+      "image": {
+        "baseline_flops": 4.61,
+        "ndrope_flops": 4.89,
+        "baseline_params": 22.06,
+        "ndrope_params": 23.36,
+        "flops_increase_percent": 6.073752711496727,
+        "params_increase_percent": 5.893019038984582
+      },
+      "video": {
+        "baseline_flops": 196.05,
+        "ndrope_flops": 196.05,
+        "baseline_params": 121.0,
+        "ndrope_params": 121.0,
+        "flops_increase_percent": 0.0,
+        "params_increase_percent": 0.0
+      },
+      "point_v1_vector": {
+        "baseline_flops": 36.72,
+        "ndrope_flops": 37.49,
+        "baseline_params": 19.4,
+        "ndrope_params": 19.4,
+        "flops_increase_percent": 2.0969498910675455,
+        "params_increase_percent": 0.0
+      },
+      "point_v2_vector": {
+        "baseline_flops": 50.04,
+        "ndrope_flops": 51.06,
+        "baseline_params": 11.32,
+        "ndrope_params": 11.33,
+        "flops_increase_percent": 2.0383693045563644,
+        "params_increase_percent": 0.08833922261484162
+      }
+    },
+    "reason": "Table arithmetic supports 6x10 and theta=100 by mean, but checkpoints/configs for those ablations are absent; image FLOPs and parameters rise about 6%, driven by width 396 rather than learned frequency parameters."
+  },
+  "reproducibility_blockers": {
+    "checkpoints": [],
+    "semantic_kitti_files": [],
+    "image_data_placeholder": true,
+    "training_hardware_paper": "4 x NVIDIA A100 40GB",
+    "paid_remote_compute_authorized": false
+  },
+  "runtime_seconds": 0.0510142499988433
+}
