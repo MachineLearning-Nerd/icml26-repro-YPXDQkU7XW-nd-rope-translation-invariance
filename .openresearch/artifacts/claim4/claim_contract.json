@@ -6,5 +6,5 @@
   "assumptions": ["the exact already-trained fixed models", "no fine-tuning", "identical deterministic image transform", "full validation labels and predictions"],
   "verification_rule": "Exact checkpoint digests, complete transform metadata, 50,000 labeled per-example predictions, and independently recomputed top-1 values must reproduce the two metrics.",
   "falsification_rule": "A counterexample must preserve the exact fixed trained models, full validation set, and rotation pipeline and contradict the reported values or ordering.",
-  "current_verdict": "UNRESOLVED"
+  "current_verdict": "BLOCKED"
 }
