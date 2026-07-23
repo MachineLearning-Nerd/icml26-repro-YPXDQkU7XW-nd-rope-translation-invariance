@@ -19,11 +19,15 @@ def verify(root: Path) -> dict[str, object]:
     audit_path = root / "outputs/source_audit/source_audit.json"
     c6_path = root / "outputs/claim6/claim6_report.json"
     c6_data_path = root / "repro/data/paper_claim6.json"
+    c34_path = root / "outputs/claim34/claim34_report.json"
+    c34_data_path = root / "repro/data/paper_claim34.json"
     c1 = json.loads(c1_path.read_text(encoding="utf-8"))
     c2 = json.loads(c2_path.read_text(encoding="utf-8"))
     audit = json.loads(audit_path.read_text(encoding="utf-8"))
     c6 = json.loads(c6_path.read_text(encoding="utf-8"))
     c6_data = json.loads(c6_data_path.read_text(encoding="utf-8"))
+    c34 = json.loads(c34_path.read_text(encoding="utf-8"))
+    c34_data = json.loads(c34_data_path.read_text(encoding="utf-8"))
     c6_bases = c6_data["frequency_base"]["bases"]
     c6_training_points = c6_data["frequency_base"]["training_points"]
     c6_training_row = next(
@@ -36,6 +40,9 @@ def verify(root: Path) -> dict[str, object]:
     c6_allocations = [
         row["scales"] * row["heads"] for row in c6_data["scale_head"]["rows"]
     ]
+    completed_routes = c34_data["completed_routes"]
+    expected_c34_verdict = "BLOCKED" if completed_routes == [1, 2, 3, 4] else "UNRESOLVED"
+    c34_route_map = {route["route"]: route for route in c34["routes"]}
 
     with (root / "outputs/claim1/translation_trials.csv").open(
         encoding="utf-8", newline=""
@@ -91,13 +98,59 @@ def verify(root: Path) -> dict[str, object]:
             c6["cost_consistency"]["official_ndrope_freqs_registered_buffer"]
             and not c6["cost_consistency"]["official_ndrope_freqs_learnable_parameter"]
         ),
+        "claim34_route_prefix_matches_config": c34["completed_routes"]
+        == completed_routes
+        == list(range(1, len(completed_routes) + 1)),
+        "claim34_verdict_stage": c34["verdicts"]
+        == {"claim3": expected_c34_verdict, "claim4": expected_c34_verdict},
+        "claim34_confidence_remains_low": c34["confidence"]
+        == {"claim3": "LOW", "claim4": "LOW"},
+        "claim34_negative_controls": all(c34["negative_controls"].values()),
+        "claim34_route1_release_inventory": (
+            c34_route_map[1]["manifest_file_count"] == 154
+            and c34_route_map[1]["checkpoint_files"] == []
+            and not c34_route_map[1]["claim3_verification_gate"]
+            and not c34_route_map[1]["claim4_verification_gate"]
+        ),
+        "claim34_no_route_mislabels_resolution": not any(
+            route["resolved"] for route in c34["routes"]
+        ),
+        "claim34_route2_width_confound": (
+            2 not in completed_routes
+            or (
+                c34_route_map[2]["released_models"]["ndrope"]["width"] == 396
+                and c34_route_map[2]["released_models"]["rope_axial"]["width"] == 384
+                and c34_route_map[2]["released_models"]["rope_mixed"]["width"] == 384
+                and not c34_route_map[2]["matched_width"]
+            )
+        ),
+        "claim34_route3_rank_reversal_is_diagnostic_only": (
+            3 not in completed_routes
+            or (
+                c34_route_map[3]["rank_reverses"]
+                and not c34_route_map[3]["rotation_transform_fully_specified"]
+                and not c34_route_map[3]["resolved"]
+            )
+        ),
+        "claim34_route4_has_no_valid_counterexample": (
+            4 not in completed_routes
+            or c34_route_map[4]["valid_counterexamples"] == []
+        ),
     }
     report = {
         "all_checks_pass": all(checks.values()),
         "checks": checks,
         "artifact_sha256": {
             str(path.relative_to(root)): digest(path)
-            for path in (c1_path, c2_path, audit_path, c6_path, c6_data_path)
+            for path in (
+                c1_path,
+                c2_path,
+                audit_path,
+                c6_path,
+                c6_data_path,
+                c34_path,
+                c34_data_path,
+            )
         },
     }
     output = root / "outputs/verification.json"

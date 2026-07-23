@@ -1,0 +1,10 @@
+{
+  "claim": 4,
+  "paper_anchors": ["S5.T5", "S5.SS2.p1"],
+  "statement": "With fixed ImageNet models and no fine-tuning, a 30-degree test gives nD-RoPE 78.51% top-1 and RoPE-Mixed 71.34%.",
+  "domain": "all 50,000 ImageNet-1K validation images resized to 256, rotated 30 degrees, and center-cropped to 224",
+  "assumptions": ["the exact already-trained fixed models", "no fine-tuning", "identical deterministic image transform", "full validation labels and predictions"],
+  "verification_rule": "Exact checkpoint digests, complete transform metadata, 50,000 labeled per-example predictions, and independently recomputed top-1 values must reproduce the two metrics.",
+  "falsification_rule": "A counterexample must preserve the exact fixed trained models, full validation set, and rotation pipeline and contradict the reported values or ordering.",
+  "current_verdict": "UNRESOLVED"
+}

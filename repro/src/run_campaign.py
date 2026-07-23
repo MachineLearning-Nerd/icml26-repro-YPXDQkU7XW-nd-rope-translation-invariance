@@ -38,12 +38,17 @@ def mirror_raw_outputs() -> None:
         ROOT / "outputs/claim2": ARTIFACT_ROOT / "claim2/raw",
         ROOT / "outputs/source_audit": ARTIFACT_ROOT / "claim5/raw",
         ROOT / "outputs/claim6": ARTIFACT_ROOT / "claim6/raw",
+        ROOT / "outputs/claim34": ARTIFACT_ROOT / "claim3/raw",
     }
     for source, destination in mappings.items():
         if destination.exists():
             shutil.rmtree(destination)
         shutil.copytree(source, destination)
-    for claim in ("claim1", "claim2", "claim5", "claim6"):
+    claim4_raw = ARTIFACT_ROOT / "claim4/raw"
+    if claim4_raw.exists():
+        shutil.rmtree(claim4_raw)
+    shutil.copytree(ROOT / "outputs/claim34", claim4_raw)
+    for claim in ("claim1", "claim2", "claim3", "claim4", "claim5", "claim6"):
         shutil.copy2(
             ROOT / "outputs/verification.json",
             ARTIFACT_ROOT / claim / "independent_checker.json",
@@ -123,6 +128,19 @@ def main() -> None:
                 "outputs/claim6",
             ],
         ),
+        (
+            "claims34_route_sequence",
+            [
+                python,
+                "repro/src/run_claim34.py",
+                "--data",
+                "repro/data/paper_claim34.json",
+                "--official-root",
+                "vendor/nD-RoPE",
+                "--output-dir",
+                "outputs/claim34",
+            ],
+        ),
         ("tests", [python, "-m", "pytest", "-q", "repro/tests"]),
         (
             "independent_verifier",
@@ -137,6 +155,9 @@ def main() -> None:
     )
     source_audit = json.loads(
         (ROOT / "outputs/source_audit/source_audit.json").read_text(encoding="utf-8")
+    )
+    claim34 = json.loads(
+        (ROOT / "outputs/claim34/claim34_report.json").read_text(encoding="utf-8")
     )
     elapsed = time.perf_counter() - started
     metadata = {
@@ -170,18 +191,18 @@ Fixed cumulative command: `uv run --frozen python repro/src/run_campaign.py`
 | --- | --- | --- |
 | 1 | VERIFIED | {source_audit["official_source"]["commit"]}; 7,680 rotary and 192 Fourier trials |
 | 2 | VERIFIED | dimensions 2–32, 7,936 symmetry trials, 64 numerical optimizations |
-| 3 | UNRESOLVED | no released checkpoint or feasible local-CPU 400-epoch ImageNet run |
-| 4 | UNRESOLVED | no released fixed ImageNet checkpoint for the exact zero-shot test |
+| 3 | {claim34["verdicts"]["claim3"]} | {len(claim34["completed_routes"])} of 4 required routes complete; no faithful full-validation evidence |
+| 4 | {claim34["verdicts"]["claim4"]} | {len(claim34["completed_routes"])} of 4 required routes complete; no faithful fixed-checkpoint rotation evidence |
 | 5 | FALSIFIED | released 85.97-mIoU path is ShapeNetPart, not ModelNet40 |
 | 6 | FALSIFIED | Table 7 contradicts its universal theta=100 statement at the stated 2,048-point training grid |
 
 Independent verifier: `all_checks_pass={verification["all_checks_pass"]}`.
 Total runtime: `{elapsed:.6f}` seconds on `{platform.platform()}` with `{os.cpu_count()}` logical CPUs.
 
-Limitations: Claims 3 and 4 remain unresolved. Claim 6's trained metrics were
-not regenerated; its verdict follows from a strict internal counterexample
-that satisfies the paper's stated Table 7 protocol. No toy or proxy metric is
-labeled full-scale.
+Limitations: Claims 3 and 4 have no released trained checkpoints or full
+ImageNet prediction evidence. Claim 6's trained metrics were not regenerated;
+its verdict follows from a strict internal counterexample that satisfies the
+paper's stated Table 7 protocol. No toy or proxy metric is labeled full-scale.
 """
     (ROOT / "EVAL.md").write_text(eval_text, encoding="utf-8")
     print("\n=== CUMULATIVE_EVIDENCE_SUMMARY ===")
