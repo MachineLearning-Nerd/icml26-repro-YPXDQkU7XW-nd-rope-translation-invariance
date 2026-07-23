@@ -1,0 +1,19 @@
+{
+  "claim": 6,
+  "paper_anchor": ["A4.SS3.SSS0.Px1", "A4.SS3.SSS0.Px2", "A4.T6", "A4.T7", "A4.SS4", "A4.T8"],
+  "domain": "the paper's reported ImageNet scale-head and ModelNet40 frequency-base ablations",
+  "assumptions": {
+    "frequency_model_training_points": 2048,
+    "frequency_metric": "instance-average mIoU (%)",
+    "frequency_candidates": [2, 100, 10000, 1000000],
+    "scale_head_embedding_dimension": 384,
+    "dimensions_per_2d_scale": 6
+  },
+  "quantifiers": {
+    "frequency": "theta=100 is strongest across all seven reported point densities",
+    "scale_head": "total positional channels remain constant for every reported allocation"
+  },
+  "falsification_rule": "FALSIFIED if a reported Table 7 setting satisfying the stated protocol has a strict score above theta=100, because Claim 6 is conjunctive; the Table 6 consistency audit is corroborating evidence.",
+  "verification_rule": "VERIFIED only if theta=100 is a maximum in every Table 7 row and all reported scale-head allocations preserve the stated channel count.",
+  "verdict": "FALSIFIED"
+}

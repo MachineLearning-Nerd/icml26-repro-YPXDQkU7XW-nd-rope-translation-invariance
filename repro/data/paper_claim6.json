@@ -1,0 +1,55 @@
+{
+  "provenance": {
+    "paper": "arXiv:2606.12146",
+    "source_url": "https://ar5iv.labs.arxiv.org/html/2606.12146",
+    "retrieved_utc": "2026-07-23T16:21:35Z",
+    "source_sha256": "aa7acd683cbb804762be15b607c1862b7be3fd0acd44424c939e2da9f0f6756f"
+  },
+  "anchors": {
+    "scale_head_assumptions": "A4.SS3.SSS0.Px1.p1",
+    "scale_head_table": "A4.T6",
+    "frequency_quantifier": "A4.SS3.SSS0.Px2.p1",
+    "frequency_strongest_statement": "A4.SS3.SSS0.Px2.p2",
+    "frequency_table": "A4.T7",
+    "cost_statement": "A4.SS4.p1",
+    "cost_table": "A4.T8"
+  },
+  "scale_head": {
+    "fixed_embedding_dimension": 384,
+    "dimensions_per_2d_scale": 6,
+    "statement": "The total number of positional channels remains constant.",
+    "rows": [
+      {"scales": 64, "heads": 1, "accuracies": [67.54, 69.06, 70.99, 71.55, 72.32, 73.56, 76.31, 77.94]},
+      {"scales": 32, "heads": 2, "accuracies": [73.36, 75.56, 77.89, 77.37, 77.20, 79.16, 79.71, 80.16]},
+      {"scales": 16, "heads": 4, "accuracies": [76.87, 78.45, 80.17, 80.40, 80.92, 81.10, 80.20, 78.90]},
+      {"scales": 6, "heads": 10, "accuracies": [77.09, 79.46, 81.07, 81.54, 82.03, 81.62, 80.78, 79.46]},
+      {"scales": 4, "heads": 16, "accuracies": [76.42, 78.96, 80.55, 80.88, 81.74, 81.94, 80.62, 79.22]},
+      {"scales": 2, "heads": 32, "accuracies": [64.18, 66.50, 69.57, 68.64, 71.64, 75.01, 79.16, 80.24]},
+      {"scales": 1, "heads": 64, "accuracies": [58.00, 63.91, 65.93, 64.50, 67.41, 69.74, 73.09, 74.80]}
+    ],
+    "resolutions": [160, 192, 224, 256, 320, 384, 448, 512]
+  },
+  "frequency_base": {
+    "training_points": 2048,
+    "metric": "instance-average mIoU (%)",
+    "quantified_statement": "Across all settings, moderate frequency bases such as theta=100 consistently achieve the best performance.",
+    "strongest_statement": "theta=100 achieves the strongest and most stable performance across all point densities.",
+    "bases": [2, 100, 10000, 1000000],
+    "rows": [
+      {"input_points": 256, "miou": [53.59, 55.04, 45.94, 46.16]},
+      {"input_points": 768, "miou": [78.05, 78.80, 74.29, 78.74]},
+      {"input_points": 1024, "miou": [82.20, 82.66, 80.55, 81.62]},
+      {"input_points": 1536, "miou": [85.43, 85.61, 85.17, 82.67]},
+      {"input_points": 2048, "miou": [85.80, 85.58, 83.66, 83.57]},
+      {"input_points": 3072, "miou": [84.78, 84.98, 84.70, 84.00]},
+      {"input_points": 4096, "miou": [82.47, 82.88, 82.77, 82.09]}
+    ]
+  },
+  "vision_cost": {
+    "statement": "FLOPs and parameter counts remain nearly identical, with only a marginal increase caused by additional frequency parameters.",
+    "baseline_flops_g": 4.61,
+    "ndrope_flops_g": 4.89,
+    "baseline_params_m": 22.06,
+    "ndrope_params_m": 23.36
+  }
+}

@@ -37,12 +37,13 @@ def mirror_raw_outputs() -> None:
         ROOT / "outputs/claim1": ARTIFACT_ROOT / "claim1/raw",
         ROOT / "outputs/claim2": ARTIFACT_ROOT / "claim2/raw",
         ROOT / "outputs/source_audit": ARTIFACT_ROOT / "claim5/raw",
+        ROOT / "outputs/claim6": ARTIFACT_ROOT / "claim6/raw",
     }
     for source, destination in mappings.items():
         if destination.exists():
             shutil.rmtree(destination)
         shutil.copytree(source, destination)
-    for claim in ("claim1", "claim2", "claim5"):
+    for claim in ("claim1", "claim2", "claim5", "claim6"):
         shutil.copy2(
             ROOT / "outputs/verification.json",
             ARTIFACT_ROOT / claim / "independent_checker.json",
@@ -109,6 +110,19 @@ def main() -> None:
                 "outputs/source_audit",
             ],
         ),
+        (
+            "claim6_exact_contract",
+            [
+                python,
+                "repro/src/run_claim6.py",
+                "--data",
+                "repro/data/paper_claim6.json",
+                "--official-source",
+                "vendor/nD-RoPE/rope-vit-ndrope/deit/models_v2_ndRope.py",
+                "--output-dir",
+                "outputs/claim6",
+            ],
+        ),
         ("tests", [python, "-m", "pytest", "-q", "repro/tests"]),
         (
             "independent_verifier",
@@ -159,13 +173,15 @@ Fixed cumulative command: `uv run --frozen python repro/src/run_campaign.py`
 | 3 | UNRESOLVED | no released checkpoint or feasible local-CPU 400-epoch ImageNet run |
 | 4 | UNRESOLVED | no released fixed ImageNet checkpoint for the exact zero-shot test |
 | 5 | FALSIFIED | released 85.97-mIoU path is ShapeNetPart, not ModelNet40 |
-| 6 | UNRESOLVED | no released ablation checkpoints/configs; reported-table arithmetic only |
+| 6 | FALSIFIED | Table 7 contradicts its universal theta=100 statement at the stated 2,048-point training grid |
 
 Independent verifier: `all_checks_pass={verification["all_checks_pass"]}`.
 Total runtime: `{elapsed:.6f}` seconds on `{platform.platform()}` with `{os.cpu_count()}` logical CPUs.
 
-Limitations: Claims 3, 4, and the trained-ablation portion of Claim 6 are not
-promoted by this baseline. No toy or proxy metric is labeled full-scale.
+Limitations: Claims 3 and 4 remain unresolved. Claim 6's trained metrics were
+not regenerated; its verdict follows from a strict internal counterexample
+that satisfies the paper's stated Table 7 protocol. No toy or proxy metric is
+labeled full-scale.
 """
     (ROOT / "EVAL.md").write_text(eval_text, encoding="utf-8")
     print("\n=== CUMULATIVE_EVIDENCE_SUMMARY ===")

@@ -17,9 +17,25 @@ def verify(root: Path) -> dict[str, object]:
     c1_path = root / "outputs/claim1/claim1_report.json"
     c2_path = root / "outputs/claim2/claim2_report.json"
     audit_path = root / "outputs/source_audit/source_audit.json"
+    c6_path = root / "outputs/claim6/claim6_report.json"
+    c6_data_path = root / "repro/data/paper_claim6.json"
     c1 = json.loads(c1_path.read_text(encoding="utf-8"))
     c2 = json.loads(c2_path.read_text(encoding="utf-8"))
     audit = json.loads(audit_path.read_text(encoding="utf-8"))
+    c6 = json.loads(c6_path.read_text(encoding="utf-8"))
+    c6_data = json.loads(c6_data_path.read_text(encoding="utf-8"))
+    c6_bases = c6_data["frequency_base"]["bases"]
+    c6_training_points = c6_data["frequency_base"]["training_points"]
+    c6_training_row = next(
+        row
+        for row in c6_data["frequency_base"]["rows"]
+        if row["input_points"] == c6_training_points
+    )
+    theta2 = c6_training_row["miou"][c6_bases.index(2)]
+    theta100 = c6_training_row["miou"][c6_bases.index(100)]
+    c6_allocations = [
+        row["scales"] * row["heads"] for row in c6_data["scale_head"]["rows"]
+    ]
 
     with (root / "outputs/claim1/translation_trials.csv").open(
         encoding="utf-8", newline=""
@@ -54,13 +70,34 @@ def verify(root: Path) -> dict[str, object]:
         "honest_claim3_scope": not audit["claim3_imagenet"]["paper_metric_reproduced"],
         "honest_claim4_scope": not audit["claim4_rotation"]["paper_metric_reproduced"],
         "honest_claim6_scope": not audit["claim6_ablation_cost"]["paper_metrics_reproduced"],
+        "claim6_verdict": c6["verdict"] == "FALSIFIED",
+        "claim6_exact_training_grid": c6_training_points == 2048,
+        "claim6_raw_counterexample_values": theta2 == 85.80
+        and theta100 == 85.58,
+        "claim6_raw_counterexample_strict": theta2 > theta100,
+        "claim6_report_counterexample_matches_raw": (
+            c6["decisive_counterexamples"][0]["input_points"] == c6_training_points
+            and c6["decisive_counterexamples"][0]["better_base"] == 2
+            and abs(
+                c6["decisive_counterexamples"][0]["margin_percentage_points"]
+                - (theta2 - theta100)
+            )
+            < 1e-12
+        ),
+        "claim6_raw_channel_inconsistency": c6_allocations
+        == [64, 64, 64, 60, 64, 64, 64],
+        "claim6_negative_controls": all(c6["negative_controls"].values()),
+        "claim6_frequency_buffer_not_parameter": (
+            c6["cost_consistency"]["official_ndrope_freqs_registered_buffer"]
+            and not c6["cost_consistency"]["official_ndrope_freqs_learnable_parameter"]
+        ),
     }
     report = {
         "all_checks_pass": all(checks.values()),
         "checks": checks,
         "artifact_sha256": {
             str(path.relative_to(root)): digest(path)
-            for path in (c1_path, c2_path, audit_path)
+            for path in (c1_path, c2_path, audit_path, c6_path, c6_data_path)
         },
     }
     output = root / "outputs/verification.json"
