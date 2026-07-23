@@ -5,7 +5,7 @@
     "retrieved_utc": "2026-07-23T16:21:35Z",
     "source_sha256": "aa7acd683cbb804762be15b607c1862b7be3fd0acd44424c939e2da9f0f6756f"
   },
-  "completed_routes": [1, 2],
+  "completed_routes": [1, 2, 3],
   "anchors": {
     "table1": "S4.T1",
     "image_claim": "S5.SS1.p3",
