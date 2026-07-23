@@ -1,0 +1,21 @@
+batch_size: 64
+epoch: 200
+learning_rate: 3e-4
+gpu: 0
+num_point: 1024
+optimizer: AdamW
+weight_decay: 1e-4
+normal: True
+lr_decay: 0.7
+step_size: 30
+
+defaults:
+  - model: PT_ndrope
+
+hydra:
+  run:
+    dir: log/partseg/${model.name}
+
+  sweep:
+    dir: log/partseg
+    subdir: ${model.name}

@@ -1,0 +1,39 @@
+{
+  "claim": 1,
+  "assessment": "verified",
+  "scope": "exact finite-dimensional Fourier analogue plus direct official-code parity",
+  "official_source": {
+    "path": "vendor/nD-RoPE/rope-vit-ndrope/deit/models_v2_ndRope.py",
+    "commit": "f2cae70760806451f5e58be4b7e3dc4d0d856a1e",
+    "sha256": "5c53340da1742636c713a83f40eb982275134fd4e471f7da764d09a5e4a9a51a"
+  },
+  "trial_counts": {
+    "rotary": 7680,
+    "parseval": 192
+  },
+  "max_errors": {
+    "translation": 1.4210854715202004e-14,
+    "relative_identity": 1.4210854715202004e-14,
+    "parseval_error": 1.1102230246251565e-15,
+    "relative_error": 4.4581891677451845e-14,
+    "kernel_error": 4.472917794519825e-15,
+    "official_simplex_gram": 9.030282505095855e-08,
+    "official_phase": 3.1401849173675503e-16,
+    "official_apply": 1.28461053794382e-07
+  },
+  "negative_control": {
+    "minimum_detected_additive_shift": 7.863305373945195e-06
+  },
+  "checks": {
+    "rotary_translation_invariance": true,
+    "relative_displacement_identity": true,
+    "finite_parseval": true,
+    "finite_fourier_relative_shift": true,
+    "riesz_kernel_preservation": true,
+    "official_simplex_agreement": true,
+    "official_phase_agreement": true,
+    "official_rotation_agreement": true,
+    "additive_negative_control_detected": true
+  },
+  "runtime_seconds": 12.425628416007385
+}

@@ -1,0 +1,10 @@
+{
+  "claim": 2,
+  "verdict": "VERIFIED",
+  "contract": "For n>=2, each scale uses n+1 centered unit regular-simplex wave vectors with rank n, Equation 18 Gram geometry, Equation 19 tight-frame isotropy, and the economy objective has the unique optimum r*=exp(1/n).",
+  "domain": "Dimensions 2 through 32 for geometry and 1 through 16 across four target resolutions for independent numerical optimization.",
+  "thresholds": {
+    "structural_max_absolute_error": 1e-10,
+    "optimal_ratio_max_absolute_error": 1e-6
+  }
+}

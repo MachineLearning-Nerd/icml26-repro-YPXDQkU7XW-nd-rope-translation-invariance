@@ -1,0 +1,140 @@
+{
+  "claims": [
+    3,
+    4
+  ],
+  "verdicts": {
+    "claim3": "BLOCKED",
+    "claim4": "BLOCKED"
+  },
+  "confidence": {
+    "claim3": "LOW",
+    "claim4": "LOW"
+  },
+  "completed_routes": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "routes": [
+    {
+      "route": 1,
+      "name": "artifact_and_data_provenance",
+      "interpretation": "The numeric claims require the exact trained model states and full ImageNet validation predictions under the stated protocols.",
+      "official_commit": "f2cae70760806451f5e58be4b7e3dc4d0d856a1e",
+      "manifest_file_count": 154,
+      "checkpoint_files": [],
+      "image_data_files": [],
+      "claim3_verification_gate": false,
+      "claim4_verification_gate": false,
+      "resolved": false,
+      "reason": "The complete pinned release contains no trained checkpoint, ImageNet labels, or per-example predictions."
+    },
+    {
+      "route": 2,
+      "name": "architecture_and_training_contract",
+      "interpretation": "The paper's matched-backbone comparison should be recoverable from the released model constructors and training entrypoints.",
+      "paper_architecture": "ViT-S / DeiT-S, patch size 16",
+      "released_models": {
+        "ndrope": {
+          "width": 396,
+          "heads": 6,
+          "head_dim": 66
+        },
+        "rope_axial": {
+          "width": 384,
+          "heads": 6,
+          "head_dim": 64
+        },
+        "rope_mixed": {
+          "width": 384,
+          "heads": 6,
+          "head_dim": 64
+        }
+      },
+      "matched_width": false,
+      "released_rotation_evaluator_present": false,
+      "resolved": false,
+      "reason": "The released nD model is width 396/head_dim 66 while both comparison models are width 384/head_dim 64, and no rotation evaluator is released. This is a confound, not a valid counterexample to either reported metric."
+    },
+    {
+      "route": 3,
+      "name": "independent_cross_table_and_protocol_check",
+      "interpretation": "If Table 1 and the zero-degree row of Table 5 used demonstrably identical models and evaluation, their in-domain ordering could cross-check Claim 3.",
+      "table1": {
+        "ndrope": 81.07,
+        "rope_mixed": 80.9
+      },
+      "table5_zero_degrees": {
+        "ndrope": 80.81,
+        "rope_mixed": 80.99
+      },
+      "table1_margin_ndrope_minus_mixed": 0.1699999999999875,
+      "table5_zero_margin_ndrope_minus_mixed": -0.1799999999999926,
+      "rank_reverses": true,
+      "rotation_transform_fully_specified": false,
+      "unspecified_transform_fields": [
+        "resize interpolation",
+        "rotation interpolation",
+        "rotation fill",
+        "antialias setting"
+      ],
+      "resolved": false,
+      "reason": "The rank reversal is material diagnostic evidence, but the paper does not establish identical checkpoints/preprocessing and omits interpolation/fill details. It therefore cannot verify or falsify either exact metric."
+    },
+    {
+      "route": 4,
+      "name": "mandatory_exact_falsification_search",
+      "interpretation": "A valid falsification must preserve ImageNet-1K, the trained ViT-S models, the exact 224 or 30-degree protocol, and contradict the reported numeric ordering.",
+      "restated_claim3": "On ImageNet-1K with a ViT-S backbone at 224x224, nD-RoPE achieves 81.07% top-1, outperforming Axial RoPE at 80.89% and RoPE-Mixed at 80.90%.",
+      "restated_claim4": "With fixed ImageNet models and no fine-tuning, at 30 degrees nD-RoPE scores 78.51% top-1 and RoPE-Mixed scores 71.34%.",
+      "candidates": [
+        {
+          "candidate": "Table 5 zero-degree rank reversal versus Table 1",
+          "assumptions_satisfied": false,
+          "rejection": "identical checkpoints and evaluation preprocessing are not established"
+        },
+        {
+          "candidate": "evaluate released randomly initialized models on CPU",
+          "assumptions_satisfied": false,
+          "rejection": "the claims quantify over 400-epoch trained ImageNet models"
+        },
+        {
+          "candidate": "treat the released 396-versus-384 width confound as a metric counterexample",
+          "assumptions_satisfied": false,
+          "rejection": "a source confound supplies no contradictory top-1 measurement"
+        }
+      ],
+      "valid_counterexamples": [],
+      "resolved": false,
+      "reason": "No candidate both satisfies every paper assumption and supplies contradictory full-validation predictions."
+    }
+  ],
+  "negative_controls": {
+    "table_values_without_predictions_are_not_verification": true,
+    "partial_predictions_are_rejected": true,
+    "missing_checkpoint_digest_is_rejected": true,
+    "complete_synthetic_gate_is_accepted": true
+  },
+  "checks": {
+    "official_manifest_count": true,
+    "routes_are_consecutive": true,
+    "no_route_claims_resolution": true,
+    "negative_controls_fail_closed": true,
+    "terminal_verdict_only_after_four_routes": true
+  },
+  "runtime_seconds": 0.010814292007125914,
+  "unblockers": {
+    "claim3": [
+      "exact trained nD-RoPE, RoPE-Axial, and RoPE-Mixed checkpoints",
+      "ImageNet-1K validation access and per-example prediction evidence",
+      "a matched width/backbone configuration or documented justification for width 396"
+    ],
+    "claim4": [
+      "the exact fixed checkpoints used in Table 5",
+      "ImageNet-1K validation access",
+      "complete resize/rotation interpolation, fill, and antialias settings"
+    ]
+  }
+}

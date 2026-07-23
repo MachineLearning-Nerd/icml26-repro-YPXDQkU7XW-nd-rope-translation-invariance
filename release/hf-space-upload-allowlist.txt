@@ -1,0 +1,12 @@
+release/hf-space-candidate/logbook.json
+release/hf-space-candidate/pages/campaign-2026-07-23-summary/page.md
+release/hf-space-candidate/pages/claim-3-four-route-audit/page.md
+release/hf-space-candidate/pages/claim-4-four-route-audit/page.md
+release/hf-space-candidate/pages/claim-6-exact-counterexample/page.md
+release/hf-space-candidate/evidence/2026-07-23/EVAL.md
+release/hf-space-candidate/evidence/2026-07-23/claim34_negative_controls.json
+release/hf-space-candidate/evidence/2026-07-23/claim34_report.json
+release/hf-space-candidate/evidence/2026-07-23/claim6_negative_controls.json
+release/hf-space-candidate/evidence/2026-07-23/claim6_report.json
+release/hf-space-candidate/evidence/2026-07-23/run_metadata.json
+release/hf-space-candidate/evidence/2026-07-23/verification.json

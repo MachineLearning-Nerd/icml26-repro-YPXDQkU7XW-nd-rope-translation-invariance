@@ -1,0 +1,16 @@
+dimension,control,detected,statistic
+2,drop_vertex,1,1.0
+2,perturb_vertex,1,0.11002274128617694
+2,missing_axis,1,1.0
+3,drop_vertex,1,1.0
+3,perturb_vertex,1,0.09154309220583945
+3,missing_axis,1,2.0
+5,drop_vertex,1,1.0
+5,perturb_vertex,1,0.030798953828534346
+5,missing_axis,1,4.0
+8,drop_vertex,1,1.0000000000000002
+8,perturb_vertex,1,0.034329523251873426
+8,missing_axis,1,7.0
+16,drop_vertex,1,0.9999999999999998
+16,perturb_vertex,1,0.017379807910703288
+16,missing_axis,1,15.0
