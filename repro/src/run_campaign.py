@@ -55,6 +55,27 @@ def mirror_raw_outputs() -> None:
         )
 
 
+def sync_release_evidence() -> None:
+    destination = ROOT / "release/hf-space-candidate/evidence/2026-07-23"
+    destination.mkdir(parents=True, exist_ok=True)
+    mappings = {
+        ROOT / "outputs/claim34/claim34_report.json": destination
+        / "claim34_report.json",
+        ROOT / "outputs/claim34/negative_controls.json": destination
+        / "claim34_negative_controls.json",
+        ROOT / "outputs/claim6/claim6_report.json": destination
+        / "claim6_report.json",
+        ROOT / "outputs/claim6/negative_controls.json": destination
+        / "claim6_negative_controls.json",
+        ROOT / "outputs/verification.json": destination / "verification.json",
+        ROOT / ".openresearch/artifacts/run_metadata.json": destination
+        / "run_metadata.json",
+        ROOT / "EVAL.md": destination / "EVAL.md",
+    }
+    for source, target in mappings.items():
+        shutil.copy2(source, target)
+
+
 def git_sha() -> str:
     return subprocess.run(
         ["git", "rev-parse", "HEAD"],
@@ -205,10 +226,54 @@ its verdict follows from a strict internal counterexample that satisfies the
 paper's stated Table 7 protocol. No toy or proxy metric is labeled full-scale.
 """
     (ROOT / "EVAL.md").write_text(eval_text, encoding="utf-8")
-    print("\n=== CUMULATIVE_EVIDENCE_SUMMARY ===")
-    print(json.dumps({"metadata": metadata, "verification": verification}, indent=2))
-    print(eval_text)
     if not verification["all_checks_pass"]:
+        raise SystemExit(1)
+
+    report_runtime = run_step(
+        "report_assets", [python, "repro/src/generate_report_assets.py"]
+    )
+    notebook_runtime = run_step(
+        "notebook_validation",
+        [
+            python,
+            "-m",
+            "marimo",
+            "check",
+            "--strict",
+            "notebooks/ndrope_reproduction.py",
+        ],
+    )
+    metadata["step_runtime_seconds"].update(
+        {
+            "report_assets": report_runtime,
+            "notebook_validation": notebook_runtime,
+        }
+    )
+    metadata["total_runtime_seconds"] = time.perf_counter() - started
+    (ARTIFACT_ROOT / "run_metadata.json").write_text(
+        json.dumps(metadata, indent=2) + "\n", encoding="utf-8"
+    )
+    sync_release_evidence()
+    release_runtime = run_step(
+        "release_gate", [python, "repro/src/verify_release.py", "--root", "."]
+    )
+    release_gate = json.loads(
+        (ARTIFACT_ROOT / "release/release_gate.json").read_text(encoding="utf-8")
+    )
+    print("\n=== CUMULATIVE_EVIDENCE_SUMMARY ===")
+    print(
+        json.dumps(
+            {
+                "metadata": metadata,
+                "verification": verification,
+                "release_gate": release_gate,
+                "release_gate_runtime_seconds": release_runtime,
+            },
+            indent=2,
+        )
+    )
+    print(eval_text)
+    if not release_gate["all_checks_pass"]:
         raise SystemExit(1)
 
 

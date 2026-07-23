@@ -2,6 +2,8 @@
   "official_source": {
     "commit": "f2cae70760806451f5e58be4b7e3dc4d0d856a1e",
     "file_count": 154,
+    "manifest_count": 154,
+    "manifest_verified": true,
     "checkpoint_count": 0,
     "semantic_kitti_file_count": 0,
     "hashes": {
@@ -30,7 +32,7 @@
       196,
       33
     ],
-    "paper_resolution_phase_seconds_cpu": 0.002318291997653432,
+    "paper_resolution_phase_seconds_cpu": 0.038414834009017795,
     "reason": "No released checkpoint; nD source uses width 396 while released axial/mixed baselines use 384."
   },
   "claim4_rotation": {
@@ -132,5 +134,5 @@
     "training_hardware_paper": "4 x NVIDIA A100 40GB",
     "paid_remote_compute_authorized": false
   },
-  "runtime_seconds": 0.0510142499988433
+  "runtime_seconds": 1.164895624970086
 }

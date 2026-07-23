@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "title": "Reproduction: nD-RoPE: A Generalized RoPE for n-Dimensional Position Embedding",
+  "emoji": "🎯",
+  "space_id": "DineshAI/YPXDQkU7XW",
+  "paper": {
+    "arxiv_id": "2606.12146"
+  },
+  "tags": [
+    "icml2026-repro",
+    "paper-YPXDQkU7XW"
+  ],
+  "updated_at": "2026-07-23T00:00:00+00:00",
+  "root": {
+    "slug": "index",
+    "title": "Reproduction: nD-RoPE: A Generalized RoPE for n-Dimensional Position Embedding",
+    "file": "pages/index.md",
+    "children": [
+      {
+        "slug": "executive-summary",
+        "title": "Executive summary",
+        "file": "pages/executive-summary/page.md",
+        "children": []
+      },
+      {
+        "slug": "claim-1-fourier-hilbert-derivation",
+        "title": "Claim 1: Fourier-Hilbert derivation",
+        "file": "pages/claim-1-fourier-hilbert-derivation/page.md",
+        "children": []
+      },
+      {
+        "slug": "claim-2-simplex-geometry-and-optimal-scale",
+        "title": "Claim 2: Simplex geometry and optimal scale",
+        "file": "pages/claim-2-simplex-geometry-and-optimal-scale/page.md",
+        "children": []
+      },
+      {
+        "slug": "claim-3-imagenet-in-domain-accuracy",
+        "title": "Claim 3: ImageNet in-domain accuracy",
+        "file": "pages/claim-3-imagenet-in-domain-accuracy/page.md",
+        "children": []
+      },
+      {
+        "slug": "claim-4-30-degree-rotation-robustness",
+        "title": "Claim 4: 30-degree rotation robustness",
+        "file": "pages/claim-4-30-degree-rotation-robustness/page.md",
+        "children": []
+      },
+      {
+        "slug": "claim-5-cross-modal-benchmarks",
+        "title": "Claim 5: Cross-modal benchmarks",
+        "file": "pages/claim-5-cross-modal-benchmarks/page.md",
+        "children": []
+      },
+      {
+        "slug": "claim-6-ablations-and-computational-cost",
+        "title": "Claim 6: Ablations and computational cost",
+        "file": "pages/claim-6-ablations-and-computational-cost/page.md",
+        "children": []
+      },
+      {
+        "slug": "conclusion",
+        "title": "Conclusion",
+        "file": "pages/conclusion/page.md",
+        "children": []
+      },
+      {
+        "slug": "campaign-2026-07-23-summary",
+        "title": "2026-07-23 cumulative campaign",
+        "file": "pages/campaign-2026-07-23-summary/page.md",
+        "children": [
+          {
+            "slug": "claim-3-four-route-audit",
+            "title": "Claim 3: four-route audit",
+            "file": "pages/claim-3-four-route-audit/page.md",
+            "children": []
+          },
+          {
+            "slug": "claim-4-four-route-audit",
+            "title": "Claim 4: four-route audit",
+            "file": "pages/claim-4-four-route-audit/page.md",
+            "children": []
+          },
+          {
+            "slug": "claim-6-exact-counterexample",
+            "title": "Claim 6: exact counterexample",
+            "file": "pages/claim-6-exact-counterexample/page.md",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  "agent_view_tokens": 4469,
+  "revision": "20260723"
+}

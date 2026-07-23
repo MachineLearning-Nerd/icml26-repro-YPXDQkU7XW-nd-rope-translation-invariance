@@ -1,0 +1,89 @@
+{
+  "claim": 6,
+  "verdict": "FALSIFIED",
+  "decisive_contract": "Across all settings, moderate frequency bases such as theta=100 consistently achieve the best performance.",
+  "decisive_counterexamples": [
+    {
+      "input_points": 2048,
+      "training_points": 2048,
+      "metric": "instance-average mIoU (%)",
+      "theta_100": 85.58,
+      "better_base": 2,
+      "better_score": 85.8,
+      "margin_percentage_points": 0.21999999999999886
+    }
+  ],
+  "scale_head_consistency": {
+    "allocations_scales_times_heads": [
+      64,
+      64,
+      64,
+      60,
+      64,
+      64,
+      64
+    ],
+    "implied_positional_dimensions": [
+      384,
+      384,
+      384,
+      360,
+      384,
+      384,
+      384
+    ],
+    "reported_fixed_embedding_dimension": 384,
+    "mean_accuracy": {
+      "64x1": 72.40875,
+      "32x2": 77.55125,
+      "16x4": 79.62625,
+      "6x10": 80.38125,
+      "4x16": 80.04124999999999,
+      "2x32": 71.8675,
+      "1x64": 67.1725
+    },
+    "resolution_winners": [
+      "6x10",
+      "6x10",
+      "6x10",
+      "6x10",
+      "6x10",
+      "4x16",
+      "6x10",
+      "2x32"
+    ]
+  },
+  "cost_consistency": {
+    "flops_increase_percent": 6.073752711496732,
+    "params_increase_percent": 5.8930190389845905,
+    "reported_parameter_difference_m": 1.3000000000000007,
+    "official_ndrope_freqs_registered_buffer": true,
+    "official_ndrope_freqs_learnable_parameter": false
+  },
+  "negative_controls": {
+    "universal_quantifier_removed": true,
+    "average_only_interpretation_supports_theta_100": true,
+    "constant_channel_control_detects_6x10": true
+  },
+  "checks": {
+    "paper_source_hash_pinned": true,
+    "theta_100_universal_statement_has_counterexample": true,
+    "counterexample_satisfies_training_grid_assumption": true,
+    "counterexample_is_strict": true,
+    "table6_channel_conservation_contradicted": true,
+    "table6_6x10_implies_360_not_384": true,
+    "table6_6x10_is_not_every_resolution_winner": true,
+    "official_frequency_is_buffer_not_parameter": true,
+    "all_negative_controls_behave_as_expected": true
+  },
+  "inputs": {
+    "paper_data_sha256": "100d70bd2deab9e9662b038a480f3c69bec7de8beb6ceb7f20428317119a11e2",
+    "official_source_sha256": "5c53340da1742636c713a83f40eb982275134fd4e471f7da764d09a5e4a9a51a"
+  },
+  "runtime_seconds": 0.02037487499183044,
+  "limitations": [
+    "No ablation checkpoint is released, so the table's trained metrics were not independently regenerated.",
+    "The falsification is instead internal to the paper's exact universal statement and its own Table 7 under the stated training-grid condition.",
+    "No conclusion depends on whether a six-percent FLOP increase is subjectively negligible."
+  ]
+}

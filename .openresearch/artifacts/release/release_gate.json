@@ -1,0 +1,38 @@
+{
+  "all_checks_pass": true,
+  "checks": {
+    "old_file_set_is_subset": true,
+    "all_preexisting_pages_byte_identical": true,
+    "only_allowlisted_old_routing_file_changed": true,
+    "logbook_space_id_exact": true,
+    "logbook_tree_files_exist": true,
+    "logbook_slugs_unique": true,
+    "upload_allowlist_files_exist": true,
+    "upload_allowlist_text_only": true,
+    "upload_allowlist_exactly_changed_or_new": true,
+    "no_secret_patterns": true,
+    "five_report_images_present": true,
+    "all_report_images_valid": true
+  },
+  "protected_revision": "dcbbd49ee4487f62443820c7dfe2be11ae10af51",
+  "protected_file_count": 20,
+  "candidate_file_count": 31,
+  "preexisting_page_count": 10,
+  "unexpected_protected_changes": [],
+  "allowlist": [
+    "release/hf-space-candidate/logbook.json",
+    "release/hf-space-candidate/pages/campaign-2026-07-23-summary/page.md",
+    "release/hf-space-candidate/pages/claim-3-four-route-audit/page.md",
+    "release/hf-space-candidate/pages/claim-4-four-route-audit/page.md",
+    "release/hf-space-candidate/pages/claim-6-exact-counterexample/page.md",
+    "release/hf-space-candidate/evidence/2026-07-23/EVAL.md",
+    "release/hf-space-candidate/evidence/2026-07-23/claim34_negative_controls.json",
+    "release/hf-space-candidate/evidence/2026-07-23/claim34_report.json",
+    "release/hf-space-candidate/evidence/2026-07-23/claim6_negative_controls.json",
+    "release/hf-space-candidate/evidence/2026-07-23/claim6_report.json",
+    "release/hf-space-candidate/evidence/2026-07-23/run_metadata.json",
+    "release/hf-space-candidate/evidence/2026-07-23/verification.json"
+  ],
+  "upload_manifest_sha256": "75dfa5908d7553023042b04670de6bc1fb581783585b235a37b93e0cdb27de30",
+  "secret_hits": {}
+}
