@@ -11,8 +11,7 @@ import re
 from PIL import Image
 
 
-MUTABLE_PROTECTED_PATHS = {"logbook.json"}
-TEXT_SUFFIXES = {".csv", ".json", ".md", ".txt"}
+MUTABLE_PROTECTED_PATHS = {"README.md", "logbook.json"}
 SECRET_PATTERNS = {
     "hf_token": re.compile(r"\bhf_[A-Za-z0-9]{20,}\b"),
     "api_key_assignment": re.compile(
@@ -32,6 +31,14 @@ def parse_manifest(path: Path) -> dict[str, str]:
         sha, relative = line.split(maxsplit=1)
         result[relative.removeprefix("./")] = sha
     return result
+
+
+def is_utf8_text(path: Path) -> bool:
+    try:
+        path.read_text(encoding="utf-8")
+    except UnicodeDecodeError:
+        return False
+    return True
 
 
 def flatten_pages(node: dict[str, object]) -> list[dict[str, object]]:
@@ -75,6 +82,108 @@ def verify(root: Path) -> dict[str, object]:
     slugs = [page["slug"] for page in pages]
     tree_files_exist = all((candidate / str(path)).is_file() for path in page_files)
     unique_slugs = len(slugs) == len(set(slugs))
+    current = candidate / "current"
+    current_files = {
+        str(path.relative_to(current)): path
+        for path in current.rglob("*")
+        if path.is_file()
+    }
+    current_pages = [
+        current / "pages" / f"current-claim-{claim}.md"
+        for claim in range(1, 7)
+    ]
+    current_root = current / "pages/current-verification.md"
+    current_visibility = current / "pages/current-visibility.md"
+    current_first = (
+        logbook["root"]["file"] == "current/pages/current-verification.md"
+        and [child["slug"] for child in logbook["root"]["children"][:6]]
+        == [f"current-claim-{claim}" for claim in range(1, 7)]
+    )
+    historical_labeled = all(
+        "Historical rejected baseline" in str(page["title"])
+        for page in pages
+        if str(page["file"]).startswith("pages/")
+    )
+    expected_visible_paths = [
+        "pyproject.toml",
+        "uv.lock",
+        ".python-version",
+        "repro/src/run_campaign.py",
+        "repro/src/verify_results.py",
+        "repro/src/run_verifier_failure_controls.py",
+        "outputs/verification.json",
+        "outputs/verifier_failure_controls.json",
+        ".openresearch/artifacts/run_metadata.json",
+        "source_revision.json",
+    ]
+    current_expected_files_exist = all(
+        path in current_files for path in expected_visible_paths
+    )
+    current_text_only = all(is_utf8_text(path) for path in current_files.values())
+    page_requirements = (
+        "claim contract",
+        "assumption",
+        "Executable",
+        "Raw",
+        "Independent",
+        "control",
+        "Fixed command",
+        "Limitation",
+        "Run SHA",
+    )
+    current_claim_pages_complete = all(
+        page.is_file()
+        and all(
+            requirement.casefold()
+            in page.read_text(encoding="utf-8").casefold()
+            for requirement in page_requirements
+        )
+        for page in current_pages
+    )
+    root_text = (
+        current_root.read_text(encoding="utf-8")
+        if current_root.is_file()
+        else ""
+    )
+    current_root_complete = all(
+        text in root_text
+        for text in (
+            "supersedes the historical rejected baseline",
+            "uv run --frozen python repro/src/run_campaign.py",
+            "outputs/verification.json",
+            "outputs/verifier_failure_controls.json",
+            ".openresearch/artifacts/run_metadata.json",
+            "#/current-claim-1",
+            "#/current-claim-6",
+        )
+    )
+    visibility_text = (
+        current_visibility.read_text(encoding="utf-8")
+        if current_visibility.is_file()
+        else ""
+    )
+    visibility_matrix_complete = (
+        visibility_text.count("| Current Claim") == 0
+        and all(f"| {claim} |" in visibility_text for claim in range(1, 7))
+        and "Code visible" in visibility_text
+        and "Reviewer verdict" in visibility_text
+    )
+    failure_controls_path = current / "outputs/verifier_failure_controls.json"
+    failure_controls = (
+        json.loads(failure_controls_path.read_text(encoding="utf-8"))
+        if failure_controls_path.is_file()
+        else {}
+    )
+    all_claim_mutations_rejected = (
+        failure_controls.get("all_mutations_rejected") is True
+        and len(failure_controls.get("cases", [])) == 6
+        and all(
+            case["verifier_exit_code"] != 0
+            and not case["all_checks_pass"]
+            and case["expected_check_failed"]
+            for case in failure_controls.get("cases", [])
+        )
+    )
 
     allowlist_path = root / "release/hf-space-upload-allowlist.txt"
     allowlist = [
@@ -83,7 +192,7 @@ def verify(root: Path) -> dict[str, object]:
         if line.strip()
     ]
     allowlist_files_exist = all((root / path).is_file() for path in allowlist)
-    text_only_allowlist = all(Path(path).suffix in TEXT_SUFFIXES for path in allowlist)
+    text_only_allowlist = all(is_utf8_text(root / path) for path in allowlist)
     changed_or_new = {
         f"release/hf-space-candidate/{path}"
         for path, file_path in candidate_paths.items()
@@ -120,6 +229,14 @@ def verify(root: Path) -> dict[str, object]:
         "logbook_space_id_exact": logbook["space_id"] == "DineshAI/YPXDQkU7XW",
         "logbook_tree_files_exist": tree_files_exist,
         "logbook_slugs_unique": unique_slugs,
+        "current_verification_is_default_and_first": current_first,
+        "historical_pages_explicitly_labeled": historical_labeled,
+        "current_expected_source_and_evidence_exist": current_expected_files_exist,
+        "current_bundle_is_utf8_text_only": current_text_only,
+        "current_claim_pages_show_required_evidence": current_claim_pages_complete,
+        "current_root_is_self_contained": current_root_complete,
+        "visibility_matrix_has_six_complete_rows": visibility_matrix_complete,
+        "all_six_claim_mutations_exit_nonzero": all_claim_mutations_rejected,
         "upload_allowlist_files_exist": allowlist_files_exist,
         "upload_allowlist_text_only": text_only_allowlist,
         "upload_allowlist_exactly_changed_or_new": allowlist_exact,

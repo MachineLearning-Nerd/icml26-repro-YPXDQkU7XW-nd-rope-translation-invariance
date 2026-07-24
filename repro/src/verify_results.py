@@ -22,6 +22,7 @@ def verify(root: Path) -> dict[str, object]:
     c6_data_path = root / "repro/data/paper_claim6.json"
     c34_path = root / "outputs/claim34/claim34_report.json"
     c34_data_path = root / "repro/data/paper_claim34.json"
+    symbolic_path = root / "outputs/symbolic_proof_certificates.json"
     c1 = json.loads(c1_path.read_text(encoding="utf-8"))
     c2 = json.loads(c2_path.read_text(encoding="utf-8"))
     audit = json.loads(audit_path.read_text(encoding="utf-8"))
@@ -30,6 +31,13 @@ def verify(root: Path) -> dict[str, object]:
     c6_data = json.loads(c6_data_path.read_text(encoding="utf-8"))
     c34 = json.loads(c34_path.read_text(encoding="utf-8"))
     c34_data = json.loads(c34_data_path.read_text(encoding="utf-8"))
+    symbolic = json.loads(symbolic_path.read_text(encoding="utf-8"))
+    failure_controls_path = root / "outputs/verifier_failure_controls.json"
+    failure_controls = (
+        json.loads(failure_controls_path.read_text(encoding="utf-8"))
+        if failure_controls_path.exists()
+        else None
+    )
     c6_bases = c6_data["frequency_base"]["bases"]
     c6_training_points = c6_data["frequency_base"]["training_points"]
     c6_training_row = next(
@@ -60,6 +68,8 @@ def verify(root: Path) -> dict[str, object]:
         economy = list(csv.DictReader(handle))
 
     checks = {
+        "universal_symbolic_proofs": symbolic["all_checks_pass"]
+        and all(symbolic["checks"].values()),
         "claim1_all_checks": c1["assessment"] == "verified" and all(c1["checks"].values()),
         "claim1_trial_count": len(translation) == c1["trial_counts"]["rotary"],
         "claim1_raw_translation_bound": max(float(row["translation_error"]) for row in translation) < 1e-10,
@@ -176,6 +186,23 @@ def verify(root: Path) -> dict[str, object]:
             or c34_route_map[4]["valid_counterexamples"] == []
         ),
     }
+    if failure_controls is not None:
+        cases_by_claim = {
+            int(case["claim"]): case for case in failure_controls["cases"]
+        }
+        checks.update(
+            {
+                f"claim{claim}_mutation_causes_nonzero_exit": (
+                    cases_by_claim[claim]["verifier_exit_code"] != 0
+                    and not cases_by_claim[claim]["all_checks_pass"]
+                    and cases_by_claim[claim]["expected_check_failed"]
+                )
+                for claim in range(1, 7)
+            }
+        )
+        checks["all_verifier_failure_controls_pass"] = failure_controls[
+            "all_mutations_rejected"
+        ]
     report = {
         "all_checks_pass": all(checks.values()),
         "checks": checks,
@@ -190,6 +217,8 @@ def verify(root: Path) -> dict[str, object]:
                 c6_data_path,
                 c34_path,
                 c34_data_path,
+                symbolic_path,
+                *([failure_controls_path] if failure_controls is not None else []),
             )
         },
     }

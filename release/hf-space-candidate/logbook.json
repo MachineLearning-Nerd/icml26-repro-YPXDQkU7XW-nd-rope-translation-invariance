@@ -13,77 +13,132 @@
   "updated_at": "2026-07-24T00:00:00+00:00",
   "root": {
     "slug": "index",
-    "title": "Reproduction: nD-RoPE: A Generalized RoPE for n-Dimensional Position Embedding",
-    "file": "pages/index.md",
+    "title": "Current verification: nD-RoPE reproduction",
+    "file": "current/pages/current-verification.md",
     "children": [
       {
+        "slug": "current-claim-1",
+        "title": "Current Claim 1: universal Fourier derivation",
+        "file": "current/pages/current-claim-1.md",
+        "children": []
+      },
+      {
+        "slug": "current-claim-2",
+        "title": "Current Claim 2: universal simplex and scale proof",
+        "file": "current/pages/current-claim-2.md",
+        "children": []
+      },
+      {
+        "slug": "current-claim-3",
+        "title": "Current Claim 3: BLOCKED after four routes",
+        "file": "current/pages/current-claim-3.md",
+        "children": []
+      },
+      {
+        "slug": "current-claim-4",
+        "title": "Current Claim 4: BLOCKED after four routes",
+        "file": "current/pages/current-claim-4.md",
+        "children": []
+      },
+      {
+        "slug": "current-claim-5",
+        "title": "Current Claim 5: source-level falsification",
+        "file": "current/pages/current-claim-5.md",
+        "children": []
+      },
+      {
+        "slug": "current-claim-6",
+        "title": "Current Claim 6: executed-model falsification",
+        "file": "current/pages/current-claim-6.md",
+        "children": []
+      },
+      {
+        "slug": "current-visibility",
+        "title": "Current evaluator-visible evidence matrix",
+        "file": "current/pages/current-visibility.md",
+        "children": []
+      },
+      {
+        "slug": "historical-rejected-baseline",
+        "title": "Historical rejected baseline — superseded verifier",
+        "file": "current/pages/historical-rejected-baseline.md",
+        "children": [
+          {
+            "slug": "historical-original-index",
+            "title": "Historical rejected baseline — Original landing page",
+            "file": "pages/index.md",
+            "children": []
+          }
+        ]
+      },
+      {
         "slug": "executive-summary",
-        "title": "Executive summary",
+        "title": "Historical rejected baseline — Executive summary",
         "file": "pages/executive-summary/page.md",
         "children": []
       },
       {
         "slug": "claim-1-fourier-hilbert-derivation",
-        "title": "Claim 1: Fourier-Hilbert derivation",
+        "title": "Historical rejected baseline — Claim 1",
         "file": "pages/claim-1-fourier-hilbert-derivation/page.md",
         "children": []
       },
       {
         "slug": "claim-2-simplex-geometry-and-optimal-scale",
-        "title": "Claim 2: Simplex geometry and optimal scale",
+        "title": "Historical rejected baseline — Claim 2",
         "file": "pages/claim-2-simplex-geometry-and-optimal-scale/page.md",
         "children": []
       },
       {
         "slug": "claim-3-imagenet-in-domain-accuracy",
-        "title": "Claim 3: ImageNet in-domain accuracy",
+        "title": "Historical rejected baseline — Claim 3",
         "file": "pages/claim-3-imagenet-in-domain-accuracy/page.md",
         "children": []
       },
       {
         "slug": "claim-4-30-degree-rotation-robustness",
-        "title": "Claim 4: 30-degree rotation robustness",
+        "title": "Historical rejected baseline — Claim 4",
         "file": "pages/claim-4-30-degree-rotation-robustness/page.md",
         "children": []
       },
       {
         "slug": "claim-5-cross-modal-benchmarks",
-        "title": "Claim 5: Cross-modal benchmarks",
+        "title": "Historical rejected baseline — Claim 5",
         "file": "pages/claim-5-cross-modal-benchmarks/page.md",
         "children": []
       },
       {
         "slug": "claim-6-ablations-and-computational-cost",
-        "title": "Claim 6: Ablations and computational cost",
+        "title": "Historical rejected baseline — Claim 6",
         "file": "pages/claim-6-ablations-and-computational-cost/page.md",
         "children": []
       },
       {
         "slug": "conclusion",
-        "title": "Conclusion",
+        "title": "Historical rejected baseline — Conclusion",
         "file": "pages/conclusion/page.md",
         "children": []
       },
       {
         "slug": "campaign-2026-07-23-summary",
-        "title": "2026-07-23 cumulative campaign",
+        "title": "Historical rejected baseline — 2026-07-23 campaign",
         "file": "pages/campaign-2026-07-23-summary/page.md",
         "children": [
           {
             "slug": "claim-3-four-route-audit",
-            "title": "Claim 3: four-route audit",
+            "title": "Historical rejected baseline — Claim 3 four-route audit",
             "file": "pages/claim-3-four-route-audit/page.md",
             "children": []
           },
           {
             "slug": "claim-4-four-route-audit",
-            "title": "Claim 4: four-route audit",
+            "title": "Historical rejected baseline — Claim 4 four-route audit",
             "file": "pages/claim-4-four-route-audit/page.md",
             "children": []
           },
           {
             "slug": "claim-6-exact-counterexample",
-            "title": "Claim 6: exact counterexample",
+            "title": "Historical rejected baseline — Claim 6 exact counterexample",
             "file": "pages/claim-6-exact-counterexample/page.md",
             "children": []
           }
@@ -91,7 +146,7 @@
       },
       {
         "slug": "campaign-2026-07-24-dynamic-flop-audit",
-        "title": "2026-07-24 post-judge dynamic FLOP audit",
+        "title": "Historical rejected baseline — 2026-07-24 dynamic FLOP audit",
         "file": "pages/campaign-2026-07-24-dynamic-flop-audit/page.md",
         "children": []
       }

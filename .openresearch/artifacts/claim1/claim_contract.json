@@ -2,7 +2,7 @@
   "claim": 1,
   "verdict": "VERIFIED",
   "contract": "For arbitrary shared translation t, nD rotary attention at x+t,y+t equals its value at x,y and equals the displacement-only phase expression; the finite Fourier analogue satisfies Parseval and preserves the content kernel.",
-  "domain": "Dimensions 1,2,3,4,5,8; simplex and random full-rank frequency families; float64 clean-room implementation plus pinned float32 author parity.",
+  "domain": "Universal exact symbolic phase derivation for arbitrary real projections and shared translations; corroborated in dimensions 1,2,3,4,5,8 with simplex and random full-rank frequency families, float64 clean-room implementation, and pinned float32 author parity.",
   "thresholds": {
     "clean_room_max_absolute_error": 1e-10,
     "official_rotation_max_absolute_error": 5e-7
