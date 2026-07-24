@@ -1,6 +1,7 @@
 {
   "all_checks_pass": true,
   "checks": {
+    "universal_symbolic_proofs": true,
     "claim1_all_checks": true,
     "claim1_trial_count": true,
     "claim1_raw_translation_bound": true,
@@ -44,16 +45,25 @@
     "claim34_no_route_mislabels_resolution": true,
     "claim34_route2_width_confound": true,
     "claim34_route3_rank_reversal_is_diagnostic_only": true,
-    "claim34_route4_has_no_valid_counterexample": true
+    "claim34_route4_has_no_valid_counterexample": true,
+    "claim1_mutation_causes_nonzero_exit": true,
+    "claim2_mutation_causes_nonzero_exit": true,
+    "claim3_mutation_causes_nonzero_exit": true,
+    "claim4_mutation_causes_nonzero_exit": true,
+    "claim5_mutation_causes_nonzero_exit": true,
+    "claim6_mutation_causes_nonzero_exit": true,
+    "all_verifier_failure_controls_pass": true
   },
   "artifact_sha256": {
-    "outputs/claim1/claim1_report.json": "40703d2fa0484ad315b57b4cc16fcba829bd54f1f744842b3485e40a46ff9000",
-    "outputs/claim2/claim2_report.json": "4cdd7174dc83ce6d55e84d4a53934e9005222e9a338f3ae1873364fd9ea5301c",
-    "outputs/source_audit/source_audit.json": "897cd1e2cb4ec713ab4de8b4f4bcd053fc7b61bb065b169643d5e7818321f4e7",
-    "outputs/claim6/claim6_report.json": "fa7dc09395de7c3393363bb88643fcc52296c4cd139e4f33d0098fbd0a345b35",
-    "outputs/claim6/dynamic_flop_report.json": "4e34796573d15ccfa1cf2e48aec064ff32f40bdd153373ef898c67df17e36171",
+    "outputs/claim1/claim1_report.json": "e5f585014620a13ca6d4e7bb5f43974ac7d1c1f64b0f2f5d61a882d338681267",
+    "outputs/claim2/claim2_report.json": "910db76b8e78d19459663c20a0c7390f6c6ab3e5e9c4973dc2630128e7a4657a",
+    "outputs/source_audit/source_audit.json": "0798d0c164600a99c8fb4c0e89f8335a3568ff956051c6f99a9048d5a42c19ee",
+    "outputs/claim6/claim6_report.json": "7e7ef4acbdfa21c36d703e8a92867f358ac2c43dcfdab623637e9df4ba95e019",
+    "outputs/claim6/dynamic_flop_report.json": "66ae8f2c1cc69bc0d15510cf4eeb41b4537b557ffa0b7c1e293d7e1ef6d0b223",
     "repro/data/paper_claim6.json": "40525552fe2090ed89306746943bb5ac1ce7e465e681ea5bb5cc935a12aa356e",
-    "outputs/claim34/claim34_report.json": "88a3226e85db570b1c139fe85401e5c1cdac99c0cabd678c6b8ec97283ce57a3",
-    "repro/data/paper_claim34.json": "5b35b24c65d62c288d990b061c88fea03075a24cc00ef68ecbd53f75dd89ca75"
+    "outputs/claim34/claim34_report.json": "87c93b92e51ce395765030d37f0eabd93de197683495b1e6559d145447ee13e6",
+    "repro/data/paper_claim34.json": "5b35b24c65d62c288d990b061c88fea03075a24cc00ef68ecbd53f75dd89ca75",
+    "outputs/symbolic_proof_certificates.json": "ce01d6285691f25eb33a3c1a4b3a4efa6722e07744121462eb0e019c25badd57",
+    "outputs/verifier_failure_controls.json": "dbb09b1083c9df4cf83507ad0acc3d82466926fee6af0db791a4aa4310154e71"
   }
 }

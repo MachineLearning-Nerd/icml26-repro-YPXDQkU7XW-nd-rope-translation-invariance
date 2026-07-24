@@ -12,7 +12,9 @@ Fixed cumulative command: `uv run --frozen python repro/src/run_campaign.py`
 | 6 | FALSIFIED | exact 224x224 models dynamically profiled; 5.69% extra attention MACs are caused by width 396 vs 384, while frequency directions contain zero trainable parameters |
 
 Independent verifier: `all_checks_pass=True`.
-Total runtime: `177.653583` seconds on `macOS-26.5.2-arm64-arm-64bit` with `8` logical CPUs.
+Verifier mutation controls: all six claims rejected corrupted evidence with
+nonzero exits.
+Total runtime: `119.595468` seconds on `macOS-26.5.2-arm64-arm-64bit` with `8` logical CPUs.
 
 Limitations: Claims 3 and 4 have no released trained checkpoints or full
 ImageNet prediction evidence. Claim 6's Table 6/7 trained metrics were not

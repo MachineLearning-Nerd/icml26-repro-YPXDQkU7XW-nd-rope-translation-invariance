@@ -34,7 +34,7 @@ and [`.python-version`](https://huggingface.co/spaces/DineshAI/YPXDQkU7XW/resolv
 Run revision: `{{GIT_SHA}}`  
 Lock SHA-256: `{{UV_LOCK_SHA256}}`  
 Official code revision: `f2cae70760806451f5e58be4b7e3dc4d0d856a1e`  
-Deterministic seeds: Claim 1 `0..63`, Fourier `10000..10015`; Claim 2
+Deterministic seeds: Claim 1 `0..31`, Fourier `10000..10063`; Claim 2
 `20260719`; Claim 6 `20260724`  
 CPU: `{{PLATFORM}}`, `{{CPU_COUNT}}` logical CPUs  
 Total formal runtime: `{{TOTAL_RUNTIME_SECONDS}}` seconds
@@ -58,4 +58,3 @@ negative controls inline. The [visibility matrix](#/current-visibility)
 maps those items. Claims 3 and 4 remain BLOCKED: missing evidence is never
 converted into a pass. No full-scale ImageNet result was approximated with a
 toy or untrained model.
-

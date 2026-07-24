@@ -1,0 +1,15 @@
+{
+  "arxiv_id": "2606.12146",
+  "url": "https://ar5iv.labs.arxiv.org/html/2606.12146",
+  "retrieved_at_utc": "2026-07-23T16:21:35Z",
+  "sha256": "aa7acd683cbb804762be15b607c1862b7be3fd0acd44424c939e2da9f0f6756f",
+  "user_agent": "OpenResearch-Reproduction/1.0 (+https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance)",
+  "anchors": {
+    "claim1": ["S4.SS1", "S4.E6"],
+    "claim2": ["S4.SS2", "S4.E18", "S4.E19", "A5"],
+    "claim3": ["S4.T1", "S5.SS1", "A3"],
+    "claim4": ["S5.T5", "S5.SS2"],
+    "claim5": ["S4.T2", "S4.T3", "S4.T4", "S5.SS1", "A3"],
+    "claim6": ["A4.SS3", "A4.SS4", "S5.T6", "S5.T7", "S5.T8"]
+  }
+}

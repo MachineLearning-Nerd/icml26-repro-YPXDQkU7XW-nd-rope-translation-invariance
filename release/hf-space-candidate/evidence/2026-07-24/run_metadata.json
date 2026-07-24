@@ -1,6 +1,6 @@
 {
   "fixed_command": "uv run --frozen python repro/src/run_campaign.py",
-  "git_sha": "4723db2062ec0e67b5a857b79c6b8425ac0c33cf",
+  "git_sha": "c3283858f04836356ce806a7b884a228c5cfb954",
   "python": "3.12.11 (main, Aug 18 2025, 19:02:39) [Clang 20.1.4 ]",
   "platform": "macOS-26.5.2-arm64-arm-64bit",
   "processor": "arm",
@@ -111,16 +111,18 @@
     "claim6_dynamic_flops": 20260724
   },
   "step_runtime_seconds": {
-    "claim1": 51.57321937500001,
-    "claim2": 44.28622679099999,
-    "claim5_source_audit": 5.82946766699979,
-    "claim6_exact_contract": 0.1966116669996154,
-    "claim6_dynamic_flop_attribution": 62.17472354199981,
-    "claims34_route_sequence": 0.26164716599987514,
-    "tests": 12.958046624999952,
-    "independent_verifier": 0.29973445899986473,
-    "report_assets": 18.237739000000147,
-    "notebook_validation": 11.085555042000124
+    "claim1": 41.61865208299969,
+    "claim2": 29.122441792000245,
+    "claim5_source_audit": 3.317614166999192,
+    "claim6_exact_contract": 0.07259662500109698,
+    "claim6_dynamic_flop_attribution": 36.590307417000076,
+    "claims34_route_sequence": 0.06457699999918987,
+    "universal_symbolic_proofs": 2.4003293340010714,
+    "tests": 5.5376195829994685,
+    "verifier_failure_controls": 0.7516609579997748,
+    "independent_verifier": 0.09500720799951523,
+    "report_assets": 8.0976840000003,
+    "notebook_validation": 4.082754416998796
   },
-  "total_runtime_seconds": 207.10554450000018
+  "total_runtime_seconds": 131.85171274999993
 }

@@ -19,36 +19,36 @@
       "profiled_macs_convention": 4600286208.0,
       "dispatch_counted_flops": 9197764608,
       "dispatch_counted_macs_convention": 4598882304.0,
-      "runtime_seconds": 0.6336267920000864,
+      "runtime_seconds": 0.25285025000084715,
       "top_profiled_operators": [
         {
           "operator": "aten::addmm",
           "flops": 8366831616,
-          "cpu_time_total_us": 188129.36999999985,
+          "cpu_time_total_us": 67331.77299999999,
           "count": 49
         },
         {
           "operator": "aten::bmm",
           "flops": 715327488,
-          "cpu_time_total_us": 12527.151999999878,
+          "cpu_time_total_us": 7539.277999999995,
           "count": 24
         },
         {
           "operator": "aten::conv2d",
           "flops": 115605504,
-          "cpu_time_total_us": 2922.6100000000006,
+          "cpu_time_total_us": 1139.1220000000003,
           "count": 1
         },
         {
           "operator": "aten::add",
           "flops": 1890816,
-          "cpu_time_total_us": 53180.00899999996,
+          "cpu_time_total_us": 15229.386000000035,
           "count": 25
         },
         {
           "operator": "aten::mul",
           "flops": 916992,
-          "cpu_time_total_us": 82498.77000000003,
+          "cpu_time_total_us": 11545.063000000006,
           "count": 36
         }
       ],
@@ -81,36 +81,36 @@
       "profiled_macs_convention": 4879382621.5,
       "dispatch_counted_flops": 9754973568,
       "dispatch_counted_macs_convention": 4877486784.0,
-      "runtime_seconds": 0.7096218340002451,
+      "runtime_seconds": 0.3175474159997975,
       "top_profiled_operators": [
         {
           "operator": "aten::addmm",
           "flops": 8897904576,
-          "cpu_time_total_us": 249704.44700000028,
+          "cpu_time_total_us": 137627.26000000013,
           "count": 49
         },
         {
           "operator": "aten::bmm",
           "flops": 737850816,
-          "cpu_time_total_us": 21129.119999999926,
+          "cpu_time_total_us": 9408.19799999998,
           "count": 25
         },
         {
           "operator": "aten::conv2d",
           "flops": 119218176,
-          "cpu_time_total_us": 9730.076,
+          "cpu_time_total_us": 1447.541,
           "count": 1
         },
         {
           "operator": "aten::mul",
           "flops": 1919387,
-          "cpu_time_total_us": 88622.47500000024,
+          "cpu_time_total_us": 22159.445999999974,
           "count": 62
         },
         {
           "operator": "aten::add",
           "flops": 1872288,
-          "cpu_time_total_us": 50465.311000000016,
+          "cpu_time_total_us": 2815.247999999994,
           "count": 24
         }
       ],
@@ -145,36 +145,36 @@
       "profiled_macs_convention": 4878849888.0,
       "dispatch_counted_flops": 9754804224,
       "dispatch_counted_macs_convention": 4877402112.0,
-      "runtime_seconds": 0.7921123330002047,
+      "runtime_seconds": 0.24001691699959338,
       "top_profiled_operators": [
         {
           "operator": "aten::addmm",
           "flops": 8897904576,
-          "cpu_time_total_us": 262173.88599999994,
+          "cpu_time_total_us": 75844.173,
           "count": 49
         },
         {
           "operator": "aten::bmm",
           "flops": 737681472,
-          "cpu_time_total_us": 17817.04600000006,
+          "cpu_time_total_us": 15461.983999999982,
           "count": 24
         },
         {
           "operator": "aten::conv2d",
           "flops": 119218176,
-          "cpu_time_total_us": 1329.01,
+          "cpu_time_total_us": 1225.748,
           "count": 1
         },
         {
           "operator": "aten::add",
           "flops": 1949904,
-          "cpu_time_total_us": 63196.923999999985,
+          "cpu_time_total_us": 6176.784999999997,
           "count": 25
         },
         {
           "operator": "aten::mul",
           "flops": 945648,
-          "cpu_time_total_us": 98900.55700000012,
+          "cpu_time_total_us": 4892.413000000028,
           "count": 36
         }
       ],
@@ -207,36 +207,36 @@
       "profiled_macs_convention": 5165583552.0,
       "dispatch_counted_flops": 10328183808,
       "dispatch_counted_macs_convention": 5164091904.0,
-      "runtime_seconds": 0.4412567920003312,
+      "runtime_seconds": 0.2362032500004716,
       "top_profiled_operators": [
         {
           "operator": "aten::addmm",
           "flops": 9445317504,
-          "cpu_time_total_us": 155827.06600000017,
+          "cpu_time_total_us": 101241.89399999993,
           "count": 49
         },
         {
           "operator": "aten::bmm",
           "flops": 760035456,
-          "cpu_time_total_us": 12642.783000000025,
+          "cpu_time_total_us": 9618.680000000011,
           "count": 24
         },
         {
           "operator": "aten::conv2d",
           "flops": 122830848,
-          "cpu_time_total_us": 3979.4829999999997,
+          "cpu_time_total_us": 1003.71,
           "count": 1
         },
         {
           "operator": "aten::add",
           "flops": 2008992,
-          "cpu_time_total_us": 22863.67899999993,
+          "cpu_time_total_us": 1836.8770000000268,
           "count": 25
         },
         {
           "operator": "aten::mul",
           "flops": 974304,
-          "cpu_time_total_us": 60987.57499999991,
+          "cpu_time_total_us": 17177.190999999948,
           "count": 36
         }
       ],
@@ -333,7 +333,7 @@
     "attention_cost_strictly_increases": true,
     "all_negative_controls_behave_as_expected": true
   },
-  "runtime_seconds": 56.06251004100022,
+  "runtime_seconds": 32.47648733400092,
   "seed": 20260724,
   "device": "cpu",
   "limitations": [

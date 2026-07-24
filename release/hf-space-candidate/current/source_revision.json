@@ -1,0 +1,7 @@
+{
+  "git_sha": "c3283858f04836356ce806a7b884a228c5cfb954",
+  "fixed_command": "uv run --frozen python repro/src/run_campaign.py",
+  "evaluator_working_directory": "current",
+  "official_source_commit": "f2cae70760806451f5e58be4b7e3dc4d0d856a1e",
+  "binary_vendor_reconstruction": "Three non-text files are reconstructed from the pinned base64 payload before the fixed command audits the complete manifest."
+}

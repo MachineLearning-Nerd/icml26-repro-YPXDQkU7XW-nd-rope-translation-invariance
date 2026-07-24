@@ -1,0 +1,65 @@
+{
+  "provenance": {
+    "paper": "arXiv:2606.12146",
+    "source_url": "https://ar5iv.labs.arxiv.org/html/2606.12146",
+    "retrieved_utc": "2026-07-23T16:21:35Z",
+    "source_sha256": "aa7acd683cbb804762be15b607c1862b7be3fd0acd44424c939e2da9f0f6756f"
+  },
+  "completed_routes": [1, 2, 3, 4],
+  "anchors": {
+    "table1": "S4.T1",
+    "image_claim": "S5.SS1.p3",
+    "matched_protocol": "S5.SS0.SSS0.Px3.p1",
+    "imagenet_recipe": "A3.SS0.SSS0.Px1",
+    "table5": "S5.T5",
+    "rotation_protocol": "S5.SS2.p1"
+  },
+  "claim3": {
+    "statement": "On ImageNet-1K with a ViT-S backbone at 224x224, nD-RoPE achieves 81.07% top-1, outperforming Axial RoPE at 80.89% and RoPE-Mixed at 80.90%.",
+    "dataset": "ImageNet-1K validation",
+    "validation_images": 50000,
+    "resolution": 224,
+    "architecture": "ViT-S / DeiT-S, patch size 16",
+    "training": {
+      "epochs": 400,
+      "optimizer": "AdamW",
+      "base_learning_rate": 0.0005,
+      "weight_decay": 0.05,
+      "warmup_epochs": 5,
+      "label_smoothing": 0.1,
+      "single_crop": true
+    },
+    "reported_top1": {
+      "ndrope": 81.07,
+      "rope_axial": 80.89,
+      "rope_mixed": 80.90
+    }
+  },
+  "claim4": {
+    "statement": "With fixed ImageNet models and no fine-tuning, at 30 degrees nD-RoPE scores 78.51% top-1 and RoPE-Mixed scores 71.34%.",
+    "dataset": "ImageNet-1K validation",
+    "validation_images": 50000,
+    "resize": 256,
+    "rotation_degrees": 30,
+    "center_crop": 224,
+    "reported_top1": {
+      "ndrope": 78.51,
+      "rope_mixed": 71.34
+    },
+    "zero_degree_top1": {
+      "ndrope": 80.81,
+      "rope_mixed": 80.99
+    },
+    "unspecified_transform_fields": [
+      "resize interpolation",
+      "rotation interpolation",
+      "rotation fill",
+      "antialias setting"
+    ]
+  },
+  "release": {
+    "repository": "https://github.com/BoyangL1/nD-RoPE",
+    "commit": "f2cae70760806451f5e58be4b7e3dc4d0d856a1e",
+    "manifest_files": 154
+  }
+}

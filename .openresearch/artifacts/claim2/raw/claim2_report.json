@@ -34,5 +34,5 @@
     "off_optimum_costs_strictly_larger": true,
     "table7_base_order_matches_bound": true
   },
-  "runtime_seconds": 1.6158024579635821
+  "runtime_seconds": 0.631185459000335
 }
