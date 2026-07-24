@@ -4,10 +4,14 @@
 
 This project reproduces and audits
 **[nD-RoPE: A Generalized RoPE for n-Dimensional Position
-Embedding](https://arxiv.org/abs/2606.12146)**. The strongest new result is a
-direct counterexample to Claim 6: at the paper’s stated 2,048-point training
-grid, Table 7 reports **85.80 mIoU for θ=2** and **85.58 for θ=100**, contrary
-to the text’s claim that θ=100 is best “across all settings.”
+Embedding](https://arxiv.org/abs/2606.12146)**. After the judge rejected a
+table-only Claim 6 consistency check, the new route executes the exact released
+224×224 models. Two independent dynamic counters and a symbolic checker show
+that nD-RoPE’s width change from 384 to 396 raises compute by about 6.06% and
+adds 5.69% attention MACs. A matched-width baseline explains 99.81% of the
+measured delta, while the live model contains **zero trainable frequency
+parameters**. This contradicts Appendix D.4’s exact “without introducing
+additional attention cost” and frequency-parameter attribution statements.
 
 The cumulative result is:
 
@@ -16,7 +20,7 @@ The cumulative result is:
   ImageNet checkpoints, predictions, and complete rotation protocol are absent.
 - Claim 5: **FALSIFIED** as written; the released 85.97-mIoU path is
   ShapeNetPart, not ModelNet40, and SemanticKITTI code is absent.
-- Claim 6: **FALSIFIED** by the exact paper-table counterexample above.
+- Claim 6: **FALSIFIED** by exact released-model execution and attribution.
 
 The live judge score remains **6/12**. A conservative post-publication forecast
 is **6–8/12**; **8/12** is the best-supported possible score if the live judge
@@ -47,6 +51,8 @@ Every formal node uses the exact inherited command
 | [`orx/claims-3-4-route-4-falsification-search`](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/claims-3-4-route-4-falsification-search) | Mandatory assumption-preserving falsification route | `uv run --frozen python repro/src/run_campaign.py` | C3/C4 BLOCKED after four routes | local Apple M2 CPU |
 | [`orx/release-candidate-evidence-and-report`](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/release-candidate-evidence-and-report) | Cumulative evidence, report, notebook, release gate | `uv run --frozen python repro/src/run_campaign.py` | Passed 22 tests, 35 checks, and the additive release gate | local Apple M2 CPU |
 | [`orx/final-approval-candidate`](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/final-approval-candidate) | Package the exact successful evidence and rerun before approval | `uv run --frozen python repro/src/run_campaign.py` | Final approval candidate | local Apple M2 CPU |
+| [`orx/post-judge-c6-dynamic-flop-attribution`](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/post-judge-c6-dynamic-flop-attribution) | Execute exact Table 8 models and attribute compute/parameters | `uv run --frozen python repro/src/run_campaign.py` | C6 dynamic counterexample; 24 tests and 42 checks passed | local Apple M2 CPU |
+| [`orx/post-judge-c6-dual-profiler-release-candidate`](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/post-judge-c6-dual-profiler-release-candidate) | Independent dispatch counter and additive post-judge release package | `uv run --frozen python repro/src/run_campaign.py` | Candidate; result filled from the formal run | local Apple M2 CPU |
 | `master` | Publication surface | Not run as an experiment (publication surface) | Mirrors approved text artifacts after release | N/A |
 
 ## Reproduce

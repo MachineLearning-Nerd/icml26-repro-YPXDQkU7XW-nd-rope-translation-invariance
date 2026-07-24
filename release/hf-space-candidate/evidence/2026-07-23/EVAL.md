@@ -12,7 +12,7 @@ Fixed cumulative command: `uv run --frozen python repro/src/run_campaign.py`
 | 6 | FALSIFIED | Table 7 contradicts its universal theta=100 statement at the stated 2,048-point training grid |
 
 Independent verifier: `all_checks_pass=True`.
-Total runtime: `189.066045` seconds on `macOS-26.5.2-arm64-arm-64bit` with `8` logical CPUs.
+Total runtime: `146.745103` seconds on `macOS-26.5.2-arm64-arm-64bit` with `8` logical CPUs.
 
 Limitations: Claims 3 and 4 have no released trained checkpoints or full
 ImageNet prediction evidence. Claim 6's trained metrics were not regenerated;

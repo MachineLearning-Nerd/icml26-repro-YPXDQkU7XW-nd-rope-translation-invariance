@@ -1,6 +1,6 @@
 {
   "fixed_command": "uv run --frozen python repro/src/run_campaign.py",
-  "git_sha": "e9ee75c344ba013d37d8ec7cd585c1e69f21ee73",
+  "git_sha": "c1d4e3c0c062d4ff3d142a444dade0f91e12a1b4",
   "python": "3.12.11 (main, Aug 18 2025, 19:02:39) [Clang 20.1.4 ]",
   "platform": "macOS-26.5.2-arm64-arm-64bit",
   "processor": "arm",
@@ -110,15 +110,15 @@
     "claim2_geometry": 20260719
   },
   "step_runtime_seconds": {
-    "claim1": 76.55718879099004,
-    "claim2": 79.3641107089934,
-    "claim5_source_audit": 25.636163874994963,
-    "claim6_exact_contract": 0.30118041700916365,
-    "claims34_route_sequence": 0.23503095895284787,
-    "tests": 6.3322447090176865,
-    "independent_verifier": 0.443872417032253,
-    "report_assets": 42.181865209015086,
-    "notebook_validation": 37.26889433397446
+    "claim1": 86.32929758296814,
+    "claim2": 35.231120124983136,
+    "claim5_source_audit": 18.339003124972805,
+    "claim6_exact_contract": 0.4729384170495905,
+    "claims34_route_sequence": 0.327759874984622,
+    "tests": 5.590716542035807,
+    "independent_verifier": 0.2937766659888439,
+    "report_assets": 28.037649125035387,
+    "notebook_validation": 12.04375216702465
   },
-  "total_runtime_seconds": 268.8668263339787
+  "total_runtime_seconds": 186.95075541705592
 }

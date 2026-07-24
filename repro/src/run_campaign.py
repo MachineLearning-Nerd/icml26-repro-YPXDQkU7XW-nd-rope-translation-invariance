@@ -56,17 +56,17 @@ def mirror_raw_outputs() -> None:
 
 
 def sync_release_evidence() -> None:
-    destination = ROOT / "release/hf-space-candidate/evidence/2026-07-23"
+    destination = ROOT / "release/hf-space-candidate/evidence/2026-07-24"
     destination.mkdir(parents=True, exist_ok=True)
     mappings = {
-        ROOT / "outputs/claim34/claim34_report.json": destination
-        / "claim34_report.json",
-        ROOT / "outputs/claim34/negative_controls.json": destination
-        / "claim34_negative_controls.json",
         ROOT / "outputs/claim6/claim6_report.json": destination
         / "claim6_report.json",
         ROOT / "outputs/claim6/negative_controls.json": destination
         / "claim6_negative_controls.json",
+        ROOT / "outputs/claim6/dynamic_flop_report.json": destination
+        / "dynamic_flop_report.json",
+        ROOT / "outputs/claim6/dynamic_flop_negative_controls.json": destination
+        / "dynamic_flop_negative_controls.json",
         ROOT / "outputs/verification.json": destination / "verification.json",
         ROOT / ".openresearch/artifacts/run_metadata.json": destination
         / "run_metadata.json",

@@ -14,7 +14,7 @@
     "scale_head": "total positional channels remain constant for every reported allocation",
     "cost": "nD-RoPE only modifies rotary frequency construction without introducing additional attention cost, and its parameter increase is caused by additional frequency parameters"
   },
-  "falsification_rule": "FALSIFIED if dynamic CPU profiling of the exact released 224x224 models shows strictly greater attention computation for nD-RoPE, an independent symbolic checker agrees, a matched-width control attributes the increase to width 396 versus 384, and the released frequency directions contain zero trainable parameters. Claim 6 is conjunctive, so falsifying this exact Appendix D.4 subclaim is sufficient.",
+  "falsification_rule": "FALSIFIED if two independent dynamic CPU counters on the exact released 224x224 models show strictly greater computation for nD-RoPE, a separate symbolic checker identifies strictly greater attention computation, a matched-width control attributes the increase to width 396 versus 384, and the released frequency directions contain zero trainable parameters. Claim 6 is conjunctive, so falsifying this exact Appendix D.4 subclaim is sufficient.",
   "verification_rule": "VERIFIED only if theta=100 is a maximum in every Table 7 row, all reported scale-head allocations preserve the stated channel count, and matched-architecture dynamic profiling confirms no additional attention cost.",
   "verdict": "FALSIFIED"
 }

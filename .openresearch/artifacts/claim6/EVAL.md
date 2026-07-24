@@ -4,8 +4,8 @@ Verdict: **FALSIFIED**
 
 The decisive post-judge evidence is an independently executed Table 8 route.
 The exact released 224x224 nD-RoPE image model widens DeiT-S from 384 to 396.
-Dynamic CPU profiling and an independent symbolic counter show that this
-strictly increases attention operations. A matched-width baseline attributes
+Two independent dynamic CPU counters and a separate symbolic counter show that
+this strictly increases computation, including attention operations. A matched-width baseline attributes
 the operation increase to the width change, while live parameter enumeration
 finds zero trainable frequency parameters.
 

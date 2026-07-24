@@ -45,7 +45,7 @@ def verify(root: Path) -> dict[str, object]:
     baseline_manifest = parse_manifest(
         root
         / ".openresearch/artifacts/baseline/"
-        "judged-space-dcbbd49ee4487f62443820c7dfe2be11ae10af51.sha256"
+        "judged-space-f457f54c89151cc850279e904d28956e4c23508b.sha256"
     )
     candidate = root / "release/hf-space-candidate"
     candidate_paths = {
@@ -130,7 +130,7 @@ def verify(root: Path) -> dict[str, object]:
     report = {
         "all_checks_pass": all(checks.values()),
         "checks": checks,
-        "protected_revision": "dcbbd49ee4487f62443820c7dfe2be11ae10af51",
+        "protected_revision": "f457f54c89151cc850279e904d28956e4c23508b",
         "protected_file_count": len(baseline_manifest),
         "candidate_file_count": len(candidate_paths),
         "preexisting_page_count": len(protected_pages),

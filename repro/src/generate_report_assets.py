@@ -23,41 +23,99 @@ def save(fig: plt.Figure, name: str) -> None:
 
 
 def headline_counterexample() -> None:
-    data = json.loads(
-        (ROOT / "repro/data/paper_claim6.json").read_text(encoding="utf-8")
+    report = json.loads(
+        (ROOT / "outputs/claim6/dynamic_flop_report.json").read_text(
+            encoding="utf-8"
+        )
     )
-    bases = data["frequency_base"]["bases"]
-    row = next(
-        item
-        for item in data["frequency_base"]["rows"]
-        if item["input_points"] == data["frequency_base"]["training_points"]
-    )
-    scores = row["miou"]
-    colors = ["#2563eb" if base == 2 else "#ef4444" if base == 100 else "#94a3b8" for base in bases]
-    fig, ax = plt.subplots(figsize=(9.2, 4.8))
-    bars = ax.bar([str(base) for base in bases], scores, color=colors)
-    ax.set_ylim(min(scores) - 0.25, max(scores) + 0.16)
-    ax.set_xlabel(r"Frequency base $\theta$")
-    ax.set_ylabel("Instance-average mIoU (%)")
-    ax.set_title("Paper Table 7 contradicts “θ=100 is best across all settings”")
-    for bar, value in zip(bars, scores, strict=True):
-        ax.text(
+    profiles = report["dynamic_profiles"]
+    model_keys = [
+        "official_baseline_384",
+        "official_ndrope_396",
+        "width_control_baseline_396",
+    ]
+    labels = ["DeiT-S\nwidth 384", "nD-RoPE\nwidth 396", "baseline control\nwidth 396"]
+    macs = [
+        profiles[key]["profiled_macs_convention"] / 1e9 for key in model_keys
+    ]
+    params = [
+        profiles[key]["parameter_breakdown"]["total"] / 1e6 for key in model_keys
+    ]
+    attribution = report["attribution"]
+    methods = ["paper table", "torch.profiler", "dispatch counter", "symbolic width"]
+    increases = [
+        attribution["paper_flops_increase_percent"],
+        attribution["profiled_flops_increase_percent"],
+        attribution["dispatch_flops_increase_percent"],
+        attribution["symbolic_width_increase_percent"],
+    ]
+
+    fig, axes = plt.subplots(1, 3, figsize=(13.2, 4.5))
+    colors = ["#64748b", "#7c3aed", "#2563eb"]
+    bars = axes[0].bar(labels, macs, color=colors)
+    axes[0].set_ylim(4.45, 4.98)
+    axes[0].set_ylabel("Executed GMAC (paper convention)")
+    axes[0].set_title("Exact 224×224 forwards")
+    for bar, value in zip(bars, macs, strict=True):
+        axes[0].text(
             bar.get_x() + bar.get_width() / 2,
-            value + 0.025,
-            f"{value:.2f}",
+            value + 0.012,
+            f"{value:.3f}",
             ha="center",
             va="bottom",
-            fontsize=9,
+            fontsize=8,
         )
-    ax.annotate(
-        "strict counterexample\n+0.22 percentage points",
-        xy=(0, scores[0]),
-        xytext=(1.35, max(scores) - 0.60),
-        arrowprops={"arrowstyle": "->", "color": "#1e3a8a"},
-        color="#1e3a8a",
+
+    bars = axes[1].barh(methods[::-1], increases[::-1], color="#7c3aed")
+    axes[1].set_xlim(5.5, 6.35)
+    axes[1].set_xlabel("Increase over width-384 baseline (%)")
+    axes[1].set_title("Three counters agree with Table 8")
+    for bar, value in zip(bars, increases[::-1], strict=True):
+        axes[1].text(
+            value + 0.015,
+            bar.get_y() + bar.get_height() / 2,
+            f"{value:.2f}%",
+            va="center",
+            fontsize=8,
+        )
+
+    axes[2].axis("off")
+    axes[2].set_title("Causal attribution from live models")
+    evidence_lines = [
+        (
+            "99.81%",
+            "of profiler delta reproduced\nby width-396 baseline control",
+        ),
+        (
+            f"+{attribution['symbolic_attention_macs_increase'] / 1e6:.1f}M",
+            "attention MACs from\n384 → 396 width",
+        ),
+        (
+            f"{attribution['ndrope_frequency_trainable_parameters']}",
+            "trainable frequency parameters\n(432 buffer elements)",
+        ),
+        (
+            f"{params[1]:.2f}M",
+            f"nD-RoPE parameters\nvs {params[0]:.2f}M baseline",
+        ),
+    ]
+    for index, (value, explanation) in enumerate(evidence_lines):
+        y = 0.83 - index * 0.23
+        axes[2].text(
+            0.04, y, value, transform=axes[2].transAxes, fontsize=17,
+            color="#7c3aed", weight="bold", va="center"
+        )
+        axes[2].text(
+            0.33, y, explanation, transform=axes[2].transAxes, fontsize=9,
+            color="#334155", va="center"
+        )
+    for ax in axes[:2]:
+        ax.grid(axis="y", alpha=0.2)
+    fig.suptitle(
+        "Executed evidence contradicts “no additional attention cost”",
+        fontsize=14,
         weight="bold",
     )
-    ax.grid(axis="y", alpha=0.2)
     save(fig, "claim6_counterexample.png")
 
 

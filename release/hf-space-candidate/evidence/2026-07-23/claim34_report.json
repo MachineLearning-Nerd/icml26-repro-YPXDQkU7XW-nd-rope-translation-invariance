@@ -124,7 +124,7 @@
     "negative_controls_fail_closed": true,
     "terminal_verdict_only_after_four_routes": true
   },
-  "runtime_seconds": 0.0067921250010840595,
+  "runtime_seconds": 0.010814292007125914,
   "unblockers": {
     "claim3": [
       "exact trained nD-RoPE, RoPE-Axial, and RoPE-Mixed checkpoints",

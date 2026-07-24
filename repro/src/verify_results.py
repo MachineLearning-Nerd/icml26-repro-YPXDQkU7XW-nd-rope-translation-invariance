@@ -103,8 +103,15 @@ def verify(root: Path) -> dict[str, object]:
         "claim6_dynamic_flop_verdict": c6_flops["verdict"] == "FALSIFIED",
         "claim6_dynamic_flop_checks": all(c6_flops["checks"].values()),
         "claim6_dynamic_outputs_finite": all(
-            profile["output_finite"]
+            profile["output_finite"] and profile["dispatch_output_finite"]
             for profile in c6_flops["dynamic_profiles"].values()
+        ),
+        "claim6_dual_dynamic_counters_agree": (
+            abs(
+                c6_flops["attribution"]["profiled_flops_increase_percent"]
+                - c6_flops["attribution"]["dispatch_flops_increase_percent"]
+            )
+            < 0.5
         ),
         "claim6_dynamic_attention_increase": (
             c6_flops["attribution"]["symbolic_attention_macs_increase"] > 0
@@ -116,6 +123,10 @@ def verify(root: Path) -> dict[str, object]:
         "claim6_dynamic_width_attribution": (
             c6_flops["attribution"][
                 "profiled_width_fraction_of_official_mac_delta"
+            ]
+            > 0.95
+            and c6_flops["attribution"][
+                "dispatch_width_fraction_of_official_mac_delta"
             ]
             > 0.95
         ),

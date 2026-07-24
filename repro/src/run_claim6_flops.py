@@ -14,6 +14,7 @@ import time
 
 import torch
 import torch.nn as nn
+from torch.utils.flop_counter import FlopCounterMode
 
 
 def parameter_breakdown(model: nn.Module) -> dict[str, object]:
@@ -122,12 +123,19 @@ def profile_forward(
         if event.flops
     ]
     events.sort(key=lambda item: item["flops"], reverse=True)
+    with FlopCounterMode(display=False) as dispatch_counter:
+        with torch.inference_mode():
+            dispatch_output = model(input_tensor)
+    dispatch_flops = int(dispatch_counter.get_total_flops())
     return {
         "name": name,
         "output_shape": list(output.shape),
         "output_finite": bool(torch.isfinite(output).all()),
+        "dispatch_output_finite": bool(torch.isfinite(dispatch_output).all()),
         "profiled_flops": sum(item["flops"] for item in events),
         "profiled_macs_convention": sum(item["flops"] for item in events) / 2,
+        "dispatch_counted_flops": dispatch_flops,
+        "dispatch_counted_macs_convention": dispatch_flops / 2,
         "runtime_seconds": elapsed,
         "top_profiled_operators": events[:12],
         "parameter_breakdown": parameter_breakdown(model),
@@ -208,7 +216,15 @@ def main() -> None:
     baseline_macs = baseline_profile["profiled_macs_convention"]
     ndrope_macs = ndrope_profile["profiled_macs_convention"]
     width_macs = width_profile["profiled_macs_convention"]
+    baseline_dispatch_macs = baseline_profile[
+        "dispatch_counted_macs_convention"
+    ]
+    ndrope_dispatch_macs = ndrope_profile["dispatch_counted_macs_convention"]
+    width_dispatch_macs = width_profile["dispatch_counted_macs_convention"]
     profile_increase = 100 * (ndrope_macs - baseline_macs) / baseline_macs
+    dispatch_increase = 100 * (
+        ndrope_dispatch_macs - baseline_dispatch_macs
+    ) / baseline_dispatch_macs
     symbolic_increase = 100 * (
         symbolic["width_396"]["total"] - symbolic["width_384"]["total"]
     ) / symbolic["width_384"]["total"]
@@ -231,6 +247,7 @@ def main() -> None:
     attribution = {
         "paper_flops_increase_percent": paper_increase,
         "profiled_flops_increase_percent": profile_increase,
+        "dispatch_flops_increase_percent": dispatch_increase,
         "symbolic_width_increase_percent": symbolic_increase,
         "symbolic_attention_macs_increase": attention_increase,
         "symbolic_attention_macs_increase_percent": 100
@@ -249,6 +266,10 @@ def main() -> None:
         "profiled_width_fraction_of_official_mac_delta": (
             (width_macs - baseline_macs) / (ndrope_macs - baseline_macs)
         ),
+        "dispatch_width_fraction_of_official_mac_delta": (
+            (width_dispatch_macs - baseline_dispatch_macs)
+            / (ndrope_dispatch_macs - baseline_dispatch_macs)
+        ),
     }
     negative_controls = {
         "wider_408_model_has_more_profiled_macs_than_396": (
@@ -262,10 +283,18 @@ def main() -> None:
             abs(ndrope_macs - width_macs) < abs(ndrope_macs - baseline_macs)
         ),
         "profiler_detects_nonzero_ndrope_delta": ndrope_macs > baseline_macs,
+        "dispatch_counter_detects_nonzero_ndrope_delta": (
+            ndrope_dispatch_macs > baseline_dispatch_macs
+        ),
+        "dispatch_counter_is_monotonic_at_width_408": (
+            negative_profile["dispatch_counted_macs_convention"]
+            > width_dispatch_macs
+        ),
     }
     checks = {
         "all_dynamic_outputs_finite": all(
-            result["output_finite"] for result in dynamic.values()
+            result["output_finite"] and result["dispatch_output_finite"]
+            for result in dynamic.values()
         ),
         "official_widths_are_384_and_396": (
             baseline.embed_dim == 384 and ndrope.embed_dim == 396
@@ -275,6 +304,12 @@ def main() -> None:
         ),
         "profiled_increase_matches_paper_table": (
             abs(profile_increase - paper_increase) < 0.5
+        ),
+        "dispatch_increase_matches_profiled_increase": (
+            abs(dispatch_increase - profile_increase) < 0.5
+        ),
+        "dispatch_increase_matches_symbolic_width_effect": (
+            abs(dispatch_increase - symbolic_increase) < 0.5
         ),
         "symbolic_baseline_matches_table_gmacs": (
             abs(symbolic["width_384"]["total"] / 1e9 - paper["vision_cost"]["baseline_flops_g"])
@@ -306,6 +341,9 @@ def main() -> None:
         "width_explains_profiled_operation_increase": (
             attribution["profiled_width_fraction_of_official_mac_delta"] > 0.95
         ),
+        "width_explains_dispatch_counted_operation_increase": (
+            attribution["dispatch_width_fraction_of_official_mac_delta"] > 0.95
+        ),
         "attention_cost_strictly_increases": attention_increase > 0,
         "all_negative_controls_behave_as_expected": all(
             negative_controls.values()
@@ -336,6 +374,7 @@ def main() -> None:
         "limitations": [
             "This route independently executes the exact released 224x224 image models and profiles computation; it does not regenerate Table 6 or Table 7 trained accuracies.",
             "PyTorch profiler reports multiply and add as two FLOPs. The report also records the one-MAC convention used by the paper-scale totals.",
+            "FlopCounterMode is an independent PyTorch dispatch-level counter. It records supported operations rather than measuring wall-clock latency; agreement is tested on the relative model delta.",
             "The matched-width 396 baseline is a counterfactual attribution control, not a reported paper model.",
         ],
     }
