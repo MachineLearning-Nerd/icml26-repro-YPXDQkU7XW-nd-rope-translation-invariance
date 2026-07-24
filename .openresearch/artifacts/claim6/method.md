@@ -1,12 +1,18 @@
 # Claim 6 method
 
-The fixed campaign parses a hash-pinned structured transcription of Tables
-6–8. It independently computes row maxima, the exact in-domain counterexample,
-scale-head products, implied positional dimensions, resolution winners, and
-FLOP/parameter deltas. Python AST inspection distinguishes a registered buffer
-from a learnable parameter in the pinned official source.
+The post-judge fixed campaign executes the exact released 224x224 DeiT-S
+baseline (width 384) and nD-RoPE model (width 396) on CPU under
+`torch.inference_mode`. PyTorch profiler records operations from real forward
+passes. A separate closed-form MAC counter derives patch, attention QKV,
+attention projection, QK, AV, MLP, and classifier costs from tensor dimensions.
 
-The verifier exits nonzero unless the strict Table 7 counterexample is present
-at the paper's 2,048-point training grid, Table 6's inconsistency is detected,
-the official buffer classification is correct, and all negative controls
-behave as expected.
+An independently instantiated width-396 baseline isolates the backbone-width
+effect from rotary computation. A width-408 baseline is the monotonic negative
+control. Parameter names and registered buffers are enumerated from the live
+models, rather than inferred only from source text.
+
+The verifier exits nonzero unless dynamic and symbolic deltas agree within 0.5
+percentage points, the computed totals reproduce Table 8 within 0.03 GMAC,
+the matched-width control explains at least 95% of the official operation
+delta, attention computation strictly increases, frequency directions contain
+zero trainable parameters, and every negative control behaves as expected.

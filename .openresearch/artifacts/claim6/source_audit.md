@@ -20,3 +20,12 @@ dimensions, six dimensions per scale, and constant positional channels.
 The released image implementation uses a persistent `freqs` buffer, not extra
 learnable frequency parameters; therefore Table 8's causal attribution of its
 parameter increase to frequency parameters is also unsupported by the release.
+
+The new post-judge contract uses Appendix D.4 anchors `A4.SS4.p1` and
+`A4.SS4.p3`. The first says that image nD-RoPE only changes frequency
+construction “without introducing additional attention cost” and attributes
+the marginal parameter increase to additional frequency parameters. The
+second says nD-RoPE itself introduces negligible overhead. The exact released
+constructors instead use width 384 for the baseline and width 396 for
+nD-RoPE, changing QKV, attention projection, attention matrix products, and
+MLP costs throughout all 12 blocks.

@@ -150,6 +150,19 @@ def main() -> None:
             ],
         ),
         (
+            "claim6_dynamic_flop_attribution",
+            [
+                python,
+                "repro/src/run_claim6_flops.py",
+                "--data",
+                "repro/data/paper_claim6.json",
+                "--official-root",
+                "vendor/nD-RoPE",
+                "--output-dir",
+                "outputs/claim6",
+            ],
+        ),
+        (
             "claims34_route_sequence",
             [
                 python,
@@ -180,6 +193,11 @@ def main() -> None:
     claim34 = json.loads(
         (ROOT / "outputs/claim34/claim34_report.json").read_text(encoding="utf-8")
     )
+    claim6_flops = json.loads(
+        (ROOT / "outputs/claim6/dynamic_flop_report.json").read_text(
+            encoding="utf-8"
+        )
+    )
     elapsed = time.perf_counter() - started
     metadata = {
         "fixed_command": "uv run --frozen python repro/src/run_campaign.py",
@@ -195,6 +213,7 @@ def main() -> None:
                 10_000 + seed for seed in range(config["claim1"]["parseval_seeds"])
             ],
             "claim2_geometry": 20_260_719,
+            "claim6_dynamic_flops": 20_260_724,
         },
         "step_runtime_seconds": step_runtimes,
         "total_runtime_seconds": elapsed,
@@ -215,15 +234,17 @@ Fixed cumulative command: `uv run --frozen python repro/src/run_campaign.py`
 | 3 | {claim34["verdicts"]["claim3"]} | {len(claim34["completed_routes"])} of 4 required routes complete; no faithful full-validation evidence |
 | 4 | {claim34["verdicts"]["claim4"]} | {len(claim34["completed_routes"])} of 4 required routes complete; no faithful fixed-checkpoint rotation evidence |
 | 5 | FALSIFIED | released 85.97-mIoU path is ShapeNetPart, not ModelNet40 |
-| 6 | FALSIFIED | Table 7 contradicts its universal theta=100 statement at the stated 2,048-point training grid |
+| 6 | FALSIFIED | exact 224x224 models dynamically profiled; {claim6_flops["attribution"]["symbolic_attention_macs_increase_percent"]:.2f}% extra attention MACs are caused by width 396 vs 384, while frequency directions contain zero trainable parameters |
 
 Independent verifier: `all_checks_pass={verification["all_checks_pass"]}`.
 Total runtime: `{elapsed:.6f}` seconds on `{platform.platform()}` with `{os.cpu_count()}` logical CPUs.
 
 Limitations: Claims 3 and 4 have no released trained checkpoints or full
-ImageNet prediction evidence. Claim 6's trained metrics were not regenerated;
-its verdict follows from a strict internal counterexample that satisfies the
-paper's stated Table 7 protocol. No toy or proxy metric is labeled full-scale.
+ImageNet prediction evidence. Claim 6's Table 6/7 trained metrics were not
+regenerated. Its decisive post-judge route instead executes and profiles the
+exact released Table 8 image architectures at 224x224, with a matched-width
+attribution control and an independent symbolic checker. No toy or proxy
+metric is labeled full-scale.
 """
     (ROOT / "EVAL.md").write_text(eval_text, encoding="utf-8")
     if not verification["all_checks_pass"]:

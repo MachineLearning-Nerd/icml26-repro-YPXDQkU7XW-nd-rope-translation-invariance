@@ -18,6 +18,7 @@ def verify(root: Path) -> dict[str, object]:
     c2_path = root / "outputs/claim2/claim2_report.json"
     audit_path = root / "outputs/source_audit/source_audit.json"
     c6_path = root / "outputs/claim6/claim6_report.json"
+    c6_flops_path = root / "outputs/claim6/dynamic_flop_report.json"
     c6_data_path = root / "repro/data/paper_claim6.json"
     c34_path = root / "outputs/claim34/claim34_report.json"
     c34_data_path = root / "repro/data/paper_claim34.json"
@@ -25,6 +26,7 @@ def verify(root: Path) -> dict[str, object]:
     c2 = json.loads(c2_path.read_text(encoding="utf-8"))
     audit = json.loads(audit_path.read_text(encoding="utf-8"))
     c6 = json.loads(c6_path.read_text(encoding="utf-8"))
+    c6_flops = json.loads(c6_flops_path.read_text(encoding="utf-8"))
     c6_data = json.loads(c6_data_path.read_text(encoding="utf-8"))
     c34 = json.loads(c34_path.read_text(encoding="utf-8"))
     c34_data = json.loads(c34_data_path.read_text(encoding="utf-8"))
@@ -98,6 +100,32 @@ def verify(root: Path) -> dict[str, object]:
             c6["cost_consistency"]["official_ndrope_freqs_registered_buffer"]
             and not c6["cost_consistency"]["official_ndrope_freqs_learnable_parameter"]
         ),
+        "claim6_dynamic_flop_verdict": c6_flops["verdict"] == "FALSIFIED",
+        "claim6_dynamic_flop_checks": all(c6_flops["checks"].values()),
+        "claim6_dynamic_outputs_finite": all(
+            profile["output_finite"]
+            for profile in c6_flops["dynamic_profiles"].values()
+        ),
+        "claim6_dynamic_attention_increase": (
+            c6_flops["attribution"]["symbolic_attention_macs_increase"] > 0
+            and c6_flops["attribution"][
+                "symbolic_attention_macs_increase_percent"
+            ]
+            > 5
+        ),
+        "claim6_dynamic_width_attribution": (
+            c6_flops["attribution"][
+                "profiled_width_fraction_of_official_mac_delta"
+            ]
+            > 0.95
+        ),
+        "claim6_dynamic_zero_frequency_parameters": (
+            c6_flops["attribution"]["ndrope_frequency_trainable_parameters"] == 0
+            and c6_flops["attribution"]["ndrope_frequency_buffer_elements"] > 0
+        ),
+        "claim6_dynamic_negative_controls": all(
+            c6_flops["negative_controls"].values()
+        ),
         "claim34_route_prefix_matches_config": c34["completed_routes"]
         == completed_routes
         == list(range(1, len(completed_routes) + 1)),
@@ -147,6 +175,7 @@ def verify(root: Path) -> dict[str, object]:
                 c2_path,
                 audit_path,
                 c6_path,
+                c6_flops_path,
                 c6_data_path,
                 c34_path,
                 c34_data_path,

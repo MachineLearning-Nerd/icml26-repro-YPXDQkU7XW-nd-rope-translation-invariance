@@ -12,6 +12,7 @@
     "frequency_strongest_statement": "A4.SS3.SSS0.Px2.p2",
     "frequency_table": "A4.T7",
     "cost_statement": "A4.SS4.p1",
+    "cost_conclusion": "A4.SS4.p3",
     "cost_table": "A4.T8"
   },
   "scale_head": {
@@ -46,7 +47,9 @@
     ]
   },
   "vision_cost": {
+    "no_attention_cost_statement": "For image and video Transformers, nD-RoPE only modifies the frequency construction of rotary embeddings without introducing additional attention cost.",
     "statement": "FLOPs and parameter counts remain nearly identical, with only a marginal increase caused by additional frequency parameters.",
+    "conclusion": "nD-RoPE itself introduces negligible computational overhead.",
     "baseline_flops_g": 4.61,
     "ndrope_flops_g": 4.89,
     "baseline_params_m": 22.06,

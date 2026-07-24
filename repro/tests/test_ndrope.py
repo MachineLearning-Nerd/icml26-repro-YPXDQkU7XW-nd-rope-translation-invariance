@@ -15,6 +15,7 @@ from ndrope_core import (
     relative_rotary_score,
     rotary_score,
 )
+from run_claim6_flops import symbolic_macs
 
 
 @pytest.mark.parametrize("dimension", [1, 2, 3, 5, 8, 16])
@@ -80,3 +81,17 @@ def test_table7_base_bound() -> None:
     bound = base_upper_bound(128, 4, 3)
     assert bound == pytest.approx(math.exp(128 / 24))
     assert 100 < bound < 1e4
+
+
+def test_claim6_symbolic_macs_match_table8() -> None:
+    baseline = symbolic_macs(width=384)
+    ndrope_width = symbolic_macs(width=396)
+    assert baseline["total"] / 1e9 == pytest.approx(4.61, abs=0.03)
+    assert ndrope_width["total"] / 1e9 == pytest.approx(4.89, abs=0.03)
+    assert ndrope_width["attention_total"] > baseline["attention_total"]
+
+
+def test_claim6_width_negative_control_is_monotonic() -> None:
+    widths = [384, 396, 408]
+    totals = [symbolic_macs(width=width)["total"] for width in widths]
+    assert totals == sorted(totals)

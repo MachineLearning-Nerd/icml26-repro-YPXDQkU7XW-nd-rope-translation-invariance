@@ -2,11 +2,16 @@
 
 Verdict: **FALSIFIED**
 
-The exact universal frequency-base statement is contradicted by the paper's
-own Table 7: at the stated 2,048-point training grid, theta=2 scores 85.80 and
-theta=100 scores 85.58 (strict margin 0.22 percentage points). Every stated
-table assumption is satisfied.
+The decisive post-judge evidence is an independently executed Table 8 route.
+The exact released 224x224 nD-RoPE image model widens DeiT-S from 384 to 396.
+Dynamic CPU profiling and an independent symbolic counter show that this
+strictly increases attention operations. A matched-width baseline attributes
+the operation increase to the width change, while live parameter enumeration
+finds zero trainable frequency parameters.
 
-Table 6 channel arithmetic and Table 8 source attribution are corroborating
-consistency findings, not the decisive counterexample. No unavailable trained
-metric was regenerated, and no toy result is promoted.
+This contradicts Appendix D.4's exact statements that nD-RoPE only changes
+frequency construction “without introducing additional attention cost” and
+that the parameter increase is caused by additional frequency parameters.
+The earlier Table 6/7 consistency findings are retained as corroboration, not
+as the decisive evidence. No unavailable trained accuracy is presented as
+regenerated.
