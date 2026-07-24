@@ -28,6 +28,14 @@
     "claim6_raw_channel_inconsistency": true,
     "claim6_negative_controls": true,
     "claim6_frequency_buffer_not_parameter": true,
+    "claim6_dynamic_flop_verdict": true,
+    "claim6_dynamic_flop_checks": true,
+    "claim6_dynamic_outputs_finite": true,
+    "claim6_dual_dynamic_counters_agree": true,
+    "claim6_dynamic_attention_increase": true,
+    "claim6_dynamic_width_attribution": true,
+    "claim6_dynamic_zero_frequency_parameters": true,
+    "claim6_dynamic_negative_controls": true,
     "claim34_route_prefix_matches_config": true,
     "claim34_verdict_stage": true,
     "claim34_confidence_remains_low": true,
@@ -39,12 +47,13 @@
     "claim34_route4_has_no_valid_counterexample": true
   },
   "artifact_sha256": {
-    "outputs/claim1/claim1_report.json": "0780e7afbc79cbffb04b26b439e0b7443958ed31dcfe1a09a210fa736a182610",
-    "outputs/claim2/claim2_report.json": "057c4705a5ddf6a401ac53bbce58e7d5a64b5c9cbba6ff8be85e1e6016372491",
-    "outputs/source_audit/source_audit.json": "8aa3843ca4f3b34790afb37005b8278cfa6b522a123e75a619bb5912604df1c5",
-    "outputs/claim6/claim6_report.json": "a1b6106c8da36ffdaada6397c5e10ec898f8933054482d086d284d694931f903",
-    "repro/data/paper_claim6.json": "100d70bd2deab9e9662b038a480f3c69bec7de8beb6ceb7f20428317119a11e2",
-    "outputs/claim34/claim34_report.json": "4c257b3022245e6251122155108ebc967c7370a011243596330dcfedaee0415c",
+    "outputs/claim1/claim1_report.json": "40703d2fa0484ad315b57b4cc16fcba829bd54f1f744842b3485e40a46ff9000",
+    "outputs/claim2/claim2_report.json": "4cdd7174dc83ce6d55e84d4a53934e9005222e9a338f3ae1873364fd9ea5301c",
+    "outputs/source_audit/source_audit.json": "897cd1e2cb4ec713ab4de8b4f4bcd053fc7b61bb065b169643d5e7818321f4e7",
+    "outputs/claim6/claim6_report.json": "fa7dc09395de7c3393363bb88643fcc52296c4cd139e4f33d0098fbd0a345b35",
+    "outputs/claim6/dynamic_flop_report.json": "4e34796573d15ccfa1cf2e48aec064ff32f40bdd153373ef898c67df17e36171",
+    "repro/data/paper_claim6.json": "40525552fe2090ed89306746943bb5ac1ce7e465e681ea5bb5cc935a12aa356e",
+    "outputs/claim34/claim34_report.json": "88a3226e85db570b1c139fe85401e5c1cdac99c0cabd678c6b8ec97283ce57a3",
     "repro/data/paper_claim34.json": "5b35b24c65d62c288d990b061c88fea03075a24cc00ef68ecbd53f75dd89ca75"
   }
 }

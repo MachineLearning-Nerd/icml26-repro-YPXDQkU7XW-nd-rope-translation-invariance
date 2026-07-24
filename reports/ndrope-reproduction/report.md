@@ -19,6 +19,10 @@ matched-width non-RoPE baseline reproduces 99.81% of the measured delta. The
 live nD-RoPE model has zero trainable frequency parameters; its 432 direction
 values are a registered buffer.
 
+The second dynamic instrument records 4.5989 versus 4.8775 GMAC, a 6.0581%
+increase—within 0.009 percentage points of `torch.profiler`. Its matched-width
+control explains 99.97% of the official-model delta.
+
 This campaign preserves the earlier numerical verification of Claims 1 and 2
 and source-level falsification of Claim 5. Four materially different routes
 were then exhausted for each ImageNet claim. Claims 3 and 4 remain **BLOCKED**:
@@ -163,6 +167,7 @@ The important lineage is:
 - [final approval candidate](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/final-approval-candidate)
 - [post-judge dynamic FLOP attribution](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/post-judge-c6-dynamic-flop-attribution)
 - [post-judge dual-profiler release candidate](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/post-judge-c6-dual-profiler-release-candidate)
+- [post-judge final publication package](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/post-judge-final-publication-package)
 
 The 2026-07-23 live judge score remains **6/12**. The post-judge evidence supports a conservative
 forecast of **6–8/12**, with **8/12** the best-supported possible result if the

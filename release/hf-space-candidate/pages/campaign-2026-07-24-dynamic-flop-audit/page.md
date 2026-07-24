@@ -41,8 +41,10 @@ values are registered buffers.
 
 The second dynamic route uses PyTorch `FlopCounterMode`, which intercepts
 supported operations at dispatch level and does not consume profiler events
-or the symbolic formulas. The raw JSON records its exact total and the
-cross-counter agreement checks.
+or the symbolic formulas. It records 4.5989 GMAC for the baseline and 4.8775
+GMAC for nD-RoPE, a 6.0581% increase. This differs from the profiler increase
+by only 0.0089 percentage points. Its matched-width control explains 99.97% of
+the official-model delta.
 
 ## Negative controls and scope
 

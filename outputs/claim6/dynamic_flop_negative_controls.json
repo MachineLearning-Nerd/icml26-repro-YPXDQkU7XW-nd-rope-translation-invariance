@@ -1,0 +1,8 @@
+{
+  "wider_408_model_has_more_profiled_macs_than_396": true,
+  "wider_408_model_has_more_parameters_than_396": true,
+  "matched_width_control_is_closer_to_ndrope_than_384_baseline": true,
+  "profiler_detects_nonzero_ndrope_delta": true,
+  "dispatch_counter_detects_nonzero_ndrope_delta": true,
+  "dispatch_counter_is_monotonic_at_width_408": true
+}

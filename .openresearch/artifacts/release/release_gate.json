@@ -14,25 +14,22 @@
     "five_report_images_present": true,
     "all_report_images_valid": true
   },
-  "protected_revision": "dcbbd49ee4487f62443820c7dfe2be11ae10af51",
-  "protected_file_count": 20,
-  "candidate_file_count": 31,
-  "preexisting_page_count": 10,
+  "protected_revision": "f457f54c89151cc850279e904d28956e4c23508b",
+  "protected_file_count": 31,
+  "candidate_file_count": 39,
+  "preexisting_page_count": 14,
   "unexpected_protected_changes": [],
   "allowlist": [
     "release/hf-space-candidate/logbook.json",
-    "release/hf-space-candidate/pages/campaign-2026-07-23-summary/page.md",
-    "release/hf-space-candidate/pages/claim-3-four-route-audit/page.md",
-    "release/hf-space-candidate/pages/claim-4-four-route-audit/page.md",
-    "release/hf-space-candidate/pages/claim-6-exact-counterexample/page.md",
-    "release/hf-space-candidate/evidence/2026-07-23/EVAL.md",
-    "release/hf-space-candidate/evidence/2026-07-23/claim34_negative_controls.json",
-    "release/hf-space-candidate/evidence/2026-07-23/claim34_report.json",
-    "release/hf-space-candidate/evidence/2026-07-23/claim6_negative_controls.json",
-    "release/hf-space-candidate/evidence/2026-07-23/claim6_report.json",
-    "release/hf-space-candidate/evidence/2026-07-23/run_metadata.json",
-    "release/hf-space-candidate/evidence/2026-07-23/verification.json"
+    "release/hf-space-candidate/pages/campaign-2026-07-24-dynamic-flop-audit/page.md",
+    "release/hf-space-candidate/evidence/2026-07-24/EVAL.md",
+    "release/hf-space-candidate/evidence/2026-07-24/claim6_negative_controls.json",
+    "release/hf-space-candidate/evidence/2026-07-24/claim6_report.json",
+    "release/hf-space-candidate/evidence/2026-07-24/dynamic_flop_negative_controls.json",
+    "release/hf-space-candidate/evidence/2026-07-24/dynamic_flop_report.json",
+    "release/hf-space-candidate/evidence/2026-07-24/run_metadata.json",
+    "release/hf-space-candidate/evidence/2026-07-24/verification.json"
   ],
-  "upload_manifest_sha256": "9c6e65a1c95f858ee8c8f55c8052190ef358120c54a4e06b122ecaaf498da897",
+  "upload_manifest_sha256": "e5dc4308f4768624903e72eac2f6388ebaf6dd902237e8a714098a0e9f2a414f",
   "secret_hits": {}
 }

@@ -50,7 +50,7 @@ def headline_counterexample() -> None:
         attribution["symbolic_width_increase_percent"],
     ]
 
-    fig, axes = plt.subplots(1, 3, figsize=(13.2, 4.5))
+    fig, axes = plt.subplots(1, 3, figsize=(15.2, 4.5))
     colors = ["#64748b", "#7c3aed", "#2563eb"]
     bars = axes[0].bar(labels, macs, color=colors)
     axes[0].set_ylim(4.45, 4.98)
@@ -102,11 +102,11 @@ def headline_counterexample() -> None:
     for index, (value, explanation) in enumerate(evidence_lines):
         y = 0.83 - index * 0.23
         axes[2].text(
-            0.04, y, value, transform=axes[2].transAxes, fontsize=17,
+            0.02, y, value, transform=axes[2].transAxes, fontsize=15,
             color="#7c3aed", weight="bold", va="center"
         )
         axes[2].text(
-            0.33, y, explanation, transform=axes[2].transAxes, fontsize=9,
+            0.47, y, explanation, transform=axes[2].transAxes, fontsize=8.5,
             color="#334155", va="center"
         )
     for ax in axes[:2]:
@@ -116,6 +116,7 @@ def headline_counterexample() -> None:
         fontsize=14,
         weight="bold",
     )
+    fig.subplots_adjust(wspace=0.55)
     save(fig, "claim6_counterexample.png")
 
 
