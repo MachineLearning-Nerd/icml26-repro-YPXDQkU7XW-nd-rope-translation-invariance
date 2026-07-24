@@ -77,10 +77,10 @@
     "all_negative_controls_behave_as_expected": true
   },
   "inputs": {
-    "paper_data_sha256": "100d70bd2deab9e9662b038a480f3c69bec7de8beb6ceb7f20428317119a11e2",
+    "paper_data_sha256": "40525552fe2090ed89306746943bb5ac1ce7e465e681ea5bb5cc935a12aa356e",
     "official_source_sha256": "5c53340da1742636c713a83f40eb982275134fd4e471f7da764d09a5e4a9a51a"
   },
-  "runtime_seconds": 0.07484270801069215,
+  "runtime_seconds": 0.007992625000042608,
   "limitations": [
     "No ablation checkpoint is released, so the table's trained metrics were not independently regenerated.",
     "The falsification is instead internal to the paper's exact universal statement and its own Table 7 under the stated training-grid condition.",

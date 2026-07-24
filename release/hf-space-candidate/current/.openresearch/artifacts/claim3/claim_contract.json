@@ -1,0 +1,10 @@
+{
+  "claim": 3,
+  "paper_anchors": ["S4.T1", "S5.SS1.p3", "A3.SS0.SSS0.Px1", "S5.SS0.SSS0.Px3.p1"],
+  "statement": "On ImageNet-1K with a ViT-S backbone at 224x224, nD-RoPE achieves 81.07% top-1, above RoPE-Axial 80.89% and RoPE-Mixed 80.90%.",
+  "domain": "all 50,000 ImageNet-1K validation images under the paper's single-crop 224x224 protocol",
+  "assumptions": ["400-epoch trained models", "ViT-S/DeiT-S patch-16 backbone", "matched architecture and training protocol", "AdamW recipe specified in Appendix C"],
+  "verification_rule": "Exact checkpoint digests, 50,000 labeled per-example predictions, protocol metadata, and independently recomputed top-1 values must reproduce the reported ordering.",
+  "falsification_rule": "A counterexample must satisfy every stated dataset, training, architecture, and evaluation assumption and contradict the reported numeric ordering.",
+  "current_verdict": "BLOCKED"
+}

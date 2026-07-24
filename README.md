@@ -4,10 +4,14 @@
 
 This project reproduces and audits
 **[nD-RoPE: A Generalized RoPE for n-Dimensional Position
-Embedding](https://arxiv.org/abs/2606.12146)**. The strongest new result is a
-direct counterexample to Claim 6: at the paper’s stated 2,048-point training
-grid, Table 7 reports **85.80 mIoU for θ=2** and **85.58 for θ=100**, contrary
-to the text’s claim that θ=100 is best “across all settings.”
+Embedding](https://arxiv.org/abs/2606.12146)**. After the judge rejected a
+table-only Claim 6 consistency check, the new route executes the exact released
+224×224 models. Two independent dynamic counters and a symbolic checker show
+that nD-RoPE’s width change from 384 to 396 raises compute by about 6.06% and
+adds 5.69% attention MACs. A matched-width baseline explains 99.81% of the
+measured delta, while the live model contains **zero trainable frequency
+parameters**. This contradicts Appendix D.4’s exact “without introducing
+additional attention cost” and frequency-parameter attribution statements.
 
 The cumulative result is:
 
@@ -16,19 +20,11 @@ The cumulative result is:
   ImageNet checkpoints, predictions, and complete rotation protocol are absent.
 - Claim 5: **FALSIFIED** as written; the released 85.97-mIoU path is
   ShapeNetPart, not ModelNet40, and SemanticKITTI code is absent.
-- Claim 6: **FALSIFIED** by the exact paper-table counterexample above.
+- Claim 6: **FALSIFIED** by exact released-model execution and attribution.
 
 The live judge score remains **6/12**. A conservative post-publication forecast
 is **6–8/12**; **8/12** is the best-supported possible score if the live judge
 accepts Claim 6. These are forecasts, not awarded points.
-
-The approved 12-file text release is published to the existing Hugging Face
-Space at revision
-[`f457f54c89151cc850279e904d28956e4c23508b`](https://huggingface.co/spaces/DineshAI/YPXDQkU7XW/commit/f457f54c89151cc850279e904d28956e4c23508b).
-An exact-revision download confirmed all approved hashes, all 20 protected
-paths, and byte identity for every protected page. The live judge has queued
-this revision for re-evaluation; the score remains 6/12 until that evaluation
-finishes.
 
 Formal runs used local Apple M2 CPU compute and the locked `uv` environment.
 No GPU or paid Hugging Face cpu-upgrade was used. The ImageNet claims were not
@@ -36,11 +32,16 @@ downscaled or replaced with proxies: they remain blocked because a smaller or
 random-model test would not satisfy their assumptions.
 
 Read the [illustrated technical report](reports/ndrope-reproduction/report.md)
-and [publication release record](reports/ndrope-reproduction/release-record.md),
-or explore the
-[self-contained marimo tutorial](notebooks/ndrope_reproduction.py). The
-notebook can be opened with the Molab badge above and embeds the headline
-values so readers need not rerun expensive work.
+or the [self-contained marimo tutorial](notebooks/ndrope_reproduction.py).
+The evaluator-visible package was published to the existing Hugging Face Space
+at exact revision
+[`458c9256e6b04cb2752c1fc20efe4094074a5283`](https://huggingface.co/spaces/DineshAI/YPXDQkU7XW/commit/458c9256e6b04cb2752c1fc20efe4094074a5283).
+Its [current verification page](release/hf-space-candidate/current/pages/current-verification.md)
+links every claim contract, executable verifier, inline result, raw output,
+independent checker, negative control, and limitation. The complete
+[publication and post-publication record](reports/ndrope-reproduction/release-record.md)
+records the immutable hashes and blind traversal. The notebook embeds the
+headline values so readers need not rerun expensive work.
 
 ## Experiment log
 
@@ -56,8 +57,13 @@ Every formal node uses the exact inherited command
 | [`orx/claims-3-4-route-3-cross-table-protocol`](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/claims-3-4-route-3-cross-table-protocol) | Cross-table/protocol diagnostic | `uv run --frozen python repro/src/run_campaign.py` | Rank reversal found; not a valid falsification | local Apple M2 CPU |
 | [`orx/claims-3-4-route-4-falsification-search`](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/claims-3-4-route-4-falsification-search) | Mandatory assumption-preserving falsification route | `uv run --frozen python repro/src/run_campaign.py` | C3/C4 BLOCKED after four routes | local Apple M2 CPU |
 | [`orx/release-candidate-evidence-and-report`](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/release-candidate-evidence-and-report) | Cumulative evidence, report, notebook, release gate | `uv run --frozen python repro/src/run_campaign.py` | Passed 22 tests, 35 checks, and the additive release gate | local Apple M2 CPU |
-| [`orx/final-approval-candidate`](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/final-approval-candidate) | Package the exact successful evidence and rerun before approval | `uv run --frozen python repro/src/run_campaign.py` | Passed 22 tests, 35 checks, and the release gate | local Apple M2 CPU |
-| `master` | Publication surface | Not run as an experiment (publication surface) | Published reproduction surface; not a formal experiment | N/A |
+| [`orx/final-approval-candidate`](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/final-approval-candidate) | Package the exact successful evidence and rerun before approval | `uv run --frozen python repro/src/run_campaign.py` | Final approval candidate | local Apple M2 CPU |
+| [`orx/post-judge-c6-dynamic-flop-attribution`](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/post-judge-c6-dynamic-flop-attribution) | Execute exact Table 8 models and attribute compute/parameters | `uv run --frozen python repro/src/run_campaign.py` | C6 dynamic counterexample; 24 tests and 42 checks passed | local Apple M2 CPU |
+| [`orx/post-judge-c6-dual-profiler-release-candidate`](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/post-judge-c6-dual-profiler-release-candidate) | Independent dispatch counter and additive post-judge release package | `uv run --frozen python repro/src/run_campaign.py` | 24 tests, 44 checks, dual counters, five figures, and 31→39-file release gate passed | local Apple M2 CPU |
+| [`orx/post-judge-final-publication-package`](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/post-judge-final-publication-package) | Commit exact generated evidence and upload manifest | `uv run --frozen python repro/src/run_campaign.py` | Publication-package validation node | local Apple M2 CPU |
+| [`orx/evaluator-visible-current-verification`](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/evaluator-visible-current-verification) | Build canonical, fail-closed evaluator-visible claim bundle | `uv run --frozen python repro/src/run_campaign.py` | 24 tests, 52 checks, six mutation controls, and release visibility gate passed | local Apple M2 CPU |
+| [`orx/blind-review-candidate-package`](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/blind-review-candidate-package) | Freeze and independently rerun the exact candidate package | `uv run --frozen python repro/src/run_campaign.py` | Blind review opened 62 files from the canonical entrypoint; all six rows complete | local Apple M2 CPU |
+| `master` | Publication surface | Not run as an experiment (publication surface) | Mirrors revision `458c9256` and the approved reader-facing artifacts | N/A |
 
 ## Reproduce
 

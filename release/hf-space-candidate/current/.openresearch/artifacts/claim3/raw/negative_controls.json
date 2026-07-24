@@ -1,0 +1,6 @@
+{
+  "table_values_without_predictions_are_not_verification": true,
+  "partial_predictions_are_rejected": true,
+  "missing_checkpoint_digest_is_rejected": true,
+  "complete_synthetic_gate_is_accepted": true
+}

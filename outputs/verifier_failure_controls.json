@@ -1,0 +1,120 @@
+{
+  "purpose": "Mutation controls proving the published cumulative verifier exits nonzero when each claim's decisive evidence or verdict is corrupted.",
+  "cases": [
+    {
+      "claim": 1,
+      "name": "corrupt_claim1_universal_proof",
+      "path": "outputs/symbolic_proof_certificates.json",
+      "keys": [
+        "checks",
+        "claim1_shared_translation_cancels_symbolically"
+      ],
+      "value": false,
+      "expected_failed_check": "universal_symbolic_proofs",
+      "verifier_exit_code": 1,
+      "all_checks_pass": false,
+      "failed_checks": [
+        "universal_symbolic_proofs"
+      ],
+      "expected_check_failed": true,
+      "stdout_sha256_recorded_by_parent_verifier": false,
+      "stderr_was_empty": true
+    },
+    {
+      "claim": 2,
+      "name": "corrupt_claim2_universal_proof",
+      "path": "outputs/symbolic_proof_certificates.json",
+      "keys": [
+        "checks",
+        "claim2_economy_derivative_identity"
+      ],
+      "value": false,
+      "expected_failed_check": "universal_symbolic_proofs",
+      "verifier_exit_code": 1,
+      "all_checks_pass": false,
+      "failed_checks": [
+        "universal_symbolic_proofs"
+      ],
+      "expected_check_failed": true,
+      "stdout_sha256_recorded_by_parent_verifier": false,
+      "stderr_was_empty": true
+    },
+    {
+      "claim": 3,
+      "name": "corrupt_claim3_blocked_verdict",
+      "path": "outputs/claim34/claim34_report.json",
+      "keys": [
+        "verdicts",
+        "claim3"
+      ],
+      "value": "VERIFIED",
+      "expected_failed_check": "claim34_verdict_stage",
+      "verifier_exit_code": 1,
+      "all_checks_pass": false,
+      "failed_checks": [
+        "claim34_verdict_stage"
+      ],
+      "expected_check_failed": true,
+      "stdout_sha256_recorded_by_parent_verifier": false,
+      "stderr_was_empty": true
+    },
+    {
+      "claim": 4,
+      "name": "corrupt_claim4_blocked_verdict",
+      "path": "outputs/claim34/claim34_report.json",
+      "keys": [
+        "verdicts",
+        "claim4"
+      ],
+      "value": "VERIFIED",
+      "expected_failed_check": "claim34_verdict_stage",
+      "verifier_exit_code": 1,
+      "all_checks_pass": false,
+      "failed_checks": [
+        "claim34_verdict_stage"
+      ],
+      "expected_check_failed": true,
+      "stdout_sha256_recorded_by_parent_verifier": false,
+      "stderr_was_empty": true
+    },
+    {
+      "claim": 5,
+      "name": "corrupt_claim5_source_verdict",
+      "path": "outputs/source_audit/source_audit.json",
+      "keys": [
+        "claim5_cross_modal",
+        "assessment"
+      ],
+      "value": "CORRUPTED",
+      "expected_failed_check": "claim5_falsification",
+      "verifier_exit_code": 1,
+      "all_checks_pass": false,
+      "failed_checks": [
+        "claim5_falsification"
+      ],
+      "expected_check_failed": true,
+      "stdout_sha256_recorded_by_parent_verifier": false,
+      "stderr_was_empty": true
+    },
+    {
+      "claim": 6,
+      "name": "corrupt_claim6_dynamic_verdict",
+      "path": "outputs/claim6/dynamic_flop_report.json",
+      "keys": [
+        "verdict"
+      ],
+      "value": "VERIFIED",
+      "expected_failed_check": "claim6_dynamic_flop_verdict",
+      "verifier_exit_code": 1,
+      "all_checks_pass": false,
+      "failed_checks": [
+        "claim6_dynamic_flop_verdict"
+      ],
+      "expected_check_failed": true,
+      "stdout_sha256_recorded_by_parent_verifier": false,
+      "stderr_was_empty": true
+    }
+  ],
+  "all_mutations_rejected": true,
+  "runtime_seconds": 0.6875035419998312
+}

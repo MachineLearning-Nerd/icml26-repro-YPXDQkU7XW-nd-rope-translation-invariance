@@ -1,0 +1,345 @@
+{
+  "claim": 6,
+  "verdict": "FALSIFIED",
+  "decisive_contract": {
+    "paper_anchor": "A4.SS4.p1",
+    "statement": "For image and video Transformers, nD-RoPE only modifies the frequency construction of rotary embeddings without introducing additional attention cost.",
+    "falsification_rule": "FALSIFIED if the exact released nD-RoPE image model executes strictly more attention operations than the released DeiT-S baseline, and an independent matched-width control attributes that increase to a backbone-width change rather than frequency parameters."
+  },
+  "dynamic_profiles": {
+    "official_baseline_384": {
+      "name": "official_baseline_384",
+      "output_shape": [
+        1,
+        1000
+      ],
+      "output_finite": true,
+      "dispatch_output_finite": true,
+      "profiled_flops": 9200572416,
+      "profiled_macs_convention": 4600286208.0,
+      "dispatch_counted_flops": 9197764608,
+      "dispatch_counted_macs_convention": 4598882304.0,
+      "runtime_seconds": 0.25285025000084715,
+      "top_profiled_operators": [
+        {
+          "operator": "aten::addmm",
+          "flops": 8366831616,
+          "cpu_time_total_us": 67331.77299999999,
+          "count": 49
+        },
+        {
+          "operator": "aten::bmm",
+          "flops": 715327488,
+          "cpu_time_total_us": 7539.277999999995,
+          "count": 24
+        },
+        {
+          "operator": "aten::conv2d",
+          "flops": 115605504,
+          "cpu_time_total_us": 1139.1220000000003,
+          "count": 1
+        },
+        {
+          "operator": "aten::add",
+          "flops": 1890816,
+          "cpu_time_total_us": 15229.386000000035,
+          "count": 25
+        },
+        {
+          "operator": "aten::mul",
+          "flops": 916992,
+          "cpu_time_total_us": 11545.063000000006,
+          "count": 36
+        }
+      ],
+      "parameter_breakdown": {
+        "total": 22059496,
+        "trainable": 22059496,
+        "groups": {
+          "patch_embed": 295296,
+          "attention": 7096320,
+          "mlp": 14178816,
+          "normalization_and_layer_scale": 28416,
+          "classifier": 385000,
+          "class_token": 384,
+          "position_embedding": 75264,
+          "frequency_named": 0,
+          "other": 0
+        },
+        "frequency_buffers": {}
+      }
+    },
+    "official_ndrope_396": {
+      "name": "official_ndrope_396",
+      "output_shape": [
+        1,
+        1000
+      ],
+      "output_finite": true,
+      "dispatch_output_finite": true,
+      "profiled_flops": 9758765243,
+      "profiled_macs_convention": 4879382621.5,
+      "dispatch_counted_flops": 9754973568,
+      "dispatch_counted_macs_convention": 4877486784.0,
+      "runtime_seconds": 0.3175474159997975,
+      "top_profiled_operators": [
+        {
+          "operator": "aten::addmm",
+          "flops": 8897904576,
+          "cpu_time_total_us": 137627.26000000013,
+          "count": 49
+        },
+        {
+          "operator": "aten::bmm",
+          "flops": 737850816,
+          "cpu_time_total_us": 9408.19799999998,
+          "count": 25
+        },
+        {
+          "operator": "aten::conv2d",
+          "flops": 119218176,
+          "cpu_time_total_us": 1447.541,
+          "count": 1
+        },
+        {
+          "operator": "aten::mul",
+          "flops": 1919387,
+          "cpu_time_total_us": 22159.445999999974,
+          "count": 62
+        },
+        {
+          "operator": "aten::add",
+          "flops": 1872288,
+          "cpu_time_total_us": 2815.247999999994,
+          "count": 24
+        }
+      ],
+      "parameter_breakdown": {
+        "total": 23355496,
+        "trainable": 23355496,
+        "groups": {
+          "patch_embed": 304524,
+          "attention": 7546176,
+          "mlp": 15078096,
+          "normalization_and_layer_scale": 29304,
+          "classifier": 397000,
+          "class_token": 396,
+          "position_embedding": 0,
+          "frequency_named": 0,
+          "other": 0
+        },
+        "frequency_buffers": {
+          "freqs": 432
+        }
+      }
+    },
+    "width_control_baseline_396": {
+      "name": "width_control_baseline_396",
+      "output_shape": [
+        1,
+        1000
+      ],
+      "output_finite": true,
+      "dispatch_output_finite": true,
+      "profiled_flops": 9757699776,
+      "profiled_macs_convention": 4878849888.0,
+      "dispatch_counted_flops": 9754804224,
+      "dispatch_counted_macs_convention": 4877402112.0,
+      "runtime_seconds": 0.24001691699959338,
+      "top_profiled_operators": [
+        {
+          "operator": "aten::addmm",
+          "flops": 8897904576,
+          "cpu_time_total_us": 75844.173,
+          "count": 49
+        },
+        {
+          "operator": "aten::bmm",
+          "flops": 737681472,
+          "cpu_time_total_us": 15461.983999999982,
+          "count": 24
+        },
+        {
+          "operator": "aten::conv2d",
+          "flops": 119218176,
+          "cpu_time_total_us": 1225.748,
+          "count": 1
+        },
+        {
+          "operator": "aten::add",
+          "flops": 1949904,
+          "cpu_time_total_us": 6176.784999999997,
+          "count": 25
+        },
+        {
+          "operator": "aten::mul",
+          "flops": 945648,
+          "cpu_time_total_us": 4892.413000000028,
+          "count": 36
+        }
+      ],
+      "parameter_breakdown": {
+        "total": 23433112,
+        "trainable": 23433112,
+        "groups": {
+          "patch_embed": 304524,
+          "attention": 7546176,
+          "mlp": 15078096,
+          "normalization_and_layer_scale": 29304,
+          "classifier": 397000,
+          "class_token": 396,
+          "position_embedding": 77616,
+          "frequency_named": 0,
+          "other": 0
+        },
+        "frequency_buffers": {}
+      }
+    },
+    "negative_control_baseline_408": {
+      "name": "negative_control_baseline_408",
+      "output_shape": [
+        1,
+        1000
+      ],
+      "output_finite": true,
+      "dispatch_output_finite": true,
+      "profiled_flops": 10331167104,
+      "profiled_macs_convention": 5165583552.0,
+      "dispatch_counted_flops": 10328183808,
+      "dispatch_counted_macs_convention": 5164091904.0,
+      "runtime_seconds": 0.2362032500004716,
+      "top_profiled_operators": [
+        {
+          "operator": "aten::addmm",
+          "flops": 9445317504,
+          "cpu_time_total_us": 101241.89399999993,
+          "count": 49
+        },
+        {
+          "operator": "aten::bmm",
+          "flops": 760035456,
+          "cpu_time_total_us": 9618.680000000011,
+          "count": 24
+        },
+        {
+          "operator": "aten::conv2d",
+          "flops": 122830848,
+          "cpu_time_total_us": 1003.71,
+          "count": 1
+        },
+        {
+          "operator": "aten::add",
+          "flops": 2008992,
+          "cpu_time_total_us": 1836.8770000000268,
+          "count": 25
+        },
+        {
+          "operator": "aten::mul",
+          "flops": 974304,
+          "cpu_time_total_us": 17177.190999999948,
+          "count": 36
+        }
+      ],
+      "parameter_breakdown": {
+        "total": 24848200,
+        "trainable": 24848200,
+        "groups": {
+          "patch_embed": 313752,
+          "attention": 8009856,
+          "mlp": 16005024,
+          "normalization_and_layer_scale": 30192,
+          "classifier": 409000,
+          "class_token": 408,
+          "position_embedding": 79968,
+          "frequency_named": 0,
+          "other": 0
+        },
+        "frequency_buffers": {}
+      }
+    }
+  },
+  "independent_symbolic_macs": {
+    "width_384": {
+      "patch": 57802752,
+      "attention_qkv": 1045757952,
+      "attention_projection": 348585984,
+      "attention_qk": 178831872,
+      "attention_av": 178831872,
+      "attention_total": 1752007680,
+      "mlp": 2788687872,
+      "classifier": 384000,
+      "total": 4598882304
+    },
+    "width_396": {
+      "patch": 59609088,
+      "attention_qkv": 1112139072,
+      "attention_projection": 370713024,
+      "attention_qk": 184420368,
+      "attention_av": 184420368,
+      "attention_total": 1851692832,
+      "mlp": 2965704192,
+      "classifier": 396000,
+      "total": 4877402112
+    },
+    "width_408": {
+      "patch": 61415424,
+      "attention_qkv": 1180562688,
+      "attention_projection": 393520896,
+      "attention_qk": 190008864,
+      "attention_av": 190008864,
+      "attention_total": 1954101312,
+      "mlp": 3148167168,
+      "classifier": 408000,
+      "total": 5164091904
+    }
+  },
+  "attribution": {
+    "paper_flops_increase_percent": 6.073752711496732,
+    "profiled_flops_increase_percent": 6.066935857483066,
+    "dispatch_flops_increase_percent": 6.058091109608879,
+    "symbolic_width_increase_percent": 6.05624996660058,
+    "symbolic_attention_macs_increase": 99685152,
+    "symbolic_attention_macs_increase_percent": 5.689766839378239,
+    "official_parameter_increase": 1296000,
+    "width_control_parameter_increase": 1373616,
+    "width_fraction_of_official_parameter_delta": 1.0598888888888889,
+    "ndrope_frequency_trainable_parameters": 0,
+    "ndrope_frequency_buffer_elements": 432,
+    "profiled_width_fraction_of_official_mac_delta": 0.9980912205451898,
+    "dispatch_width_fraction_of_official_mac_delta": 0.9996960852890808
+  },
+  "negative_controls": {
+    "wider_408_model_has_more_profiled_macs_than_396": true,
+    "wider_408_model_has_more_parameters_than_396": true,
+    "matched_width_control_is_closer_to_ndrope_than_384_baseline": true,
+    "profiler_detects_nonzero_ndrope_delta": true,
+    "dispatch_counter_detects_nonzero_ndrope_delta": true,
+    "dispatch_counter_is_monotonic_at_width_408": true
+  },
+  "checks": {
+    "all_dynamic_outputs_finite": true,
+    "official_widths_are_384_and_396": true,
+    "profiled_increase_matches_symbolic_width_effect": true,
+    "profiled_increase_matches_paper_table": true,
+    "dispatch_increase_matches_profiled_increase": true,
+    "dispatch_increase_matches_symbolic_width_effect": true,
+    "symbolic_baseline_matches_table_gmacs": true,
+    "symbolic_ndrope_width_matches_table_gmacs": true,
+    "official_parameter_counts_match_table": true,
+    "frequency_directions_are_buffers_not_parameters": true,
+    "width_explains_parameter_increase": true,
+    "width_explains_profiled_operation_increase": true,
+    "width_explains_dispatch_counted_operation_increase": true,
+    "attention_cost_strictly_increases": true,
+    "all_negative_controls_behave_as_expected": true
+  },
+  "runtime_seconds": 32.47648733400092,
+  "seed": 20260724,
+  "device": "cpu",
+  "limitations": [
+    "This route independently executes the exact released 224x224 image models and profiles computation; it does not regenerate Table 6 or Table 7 trained accuracies.",
+    "PyTorch profiler reports multiply and add as two FLOPs. The report also records the one-MAC convention used by the paper-scale totals.",
+    "FlopCounterMode is an independent PyTorch dispatch-level counter. It records supported operations rather than measuring wall-clock latency; agreement is tested on the relative model delta.",
+    "The matched-width 396 baseline is a counterfactual attribution control, not a reported paper model."
+  ]
+}
