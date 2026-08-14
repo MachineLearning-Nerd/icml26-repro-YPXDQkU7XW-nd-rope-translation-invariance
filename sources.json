@@ -1,0 +1,45 @@
+{
+  "paper": {
+    "title": "nD-RoPE: A Generalized RoPE for n-Dimensional Position Embedding",
+    "arxiv_id": "2606.12146",
+    "arxiv_version": "v1",
+    "abstract_url": "https://arxiv.org/abs/2606.12146",
+    "pdf_url": "https://arxiv.org/pdf/2606.12146",
+    "source_url": "https://export.arxiv.org/e-print/2606.12146",
+    "openreview_url": "https://openreview.net/forum?id=YPXDQkU7XW",
+    "authors": [
+      "Boyang Li",
+      "Yulin Wu",
+      "Sizhe Xu",
+      "Nuoxian Huang",
+      "Zhonghang Yuan",
+      "Shangyi Guo",
+      "Shu Yang",
+      "Takahiro Yabe"
+    ]
+  },
+  "retrieved_at_utc": "2026-08-14T00:00:00Z",
+  "artifacts": [
+    {
+      "path": "sources/arxiv/source.tar.gz",
+      "url": "https://export.arxiv.org/e-print/2606.12146",
+      "sha256": "71b2bb91445572c1acdd482dba206c38ae108d9f7578751728157cc0c5892a1b"
+    },
+    {
+      "path": "sources/arxiv/paper.pdf",
+      "url": "https://arxiv.org/pdf/2606.12146",
+      "sha256": "1f4d321e44d8dc48b927e64842e0c0811a9bc86c6aea493763dcfb5e8dc39411"
+    },
+    {
+      "path": ".openresearch/artifacts/source/paper_source.json",
+      "url": "https://ar5iv.labs.arxiv.org/html/2606.12146",
+      "sha256": "d6a6000baf1f83ec90b717848a09e6bf45d92f2d0acd63790429d87c7c4e5d06"
+    }
+  ],
+  "official_implementation": {
+    "repository": "https://github.com/BoyangL1/nD-RoPE",
+    "commit": "f2cae70760806451f5e58be4b7e3dc4d0d856a1e",
+    "commit_url": "https://github.com/BoyangL1/nD-RoPE/commit/f2cae70760806451f5e58be4b7e3dc4d0d856a1e",
+    "vendored_manifest": "vendor/nD-RoPE/MANIFEST.sha256"
+  }
+}

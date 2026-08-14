@@ -1,85 +1,142 @@
-# nD-RoPE reproduction: claim-by-claim evidence
+# nD-RoPE: claim-by-claim reproduction audit
 
-[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/blob/master/notebooks/ndrope_reproduction.py)
-
-This project reproduces and audits
+This repository is the clean-room reproduction and evidence audit for
 **[nD-RoPE: A Generalized RoPE for n-Dimensional Position
-Embedding](https://arxiv.org/abs/2606.12146)**. After the judge rejected a
-table-only Claim 6 consistency check, the new route executes the exact released
-224×224 models. Two independent dynamic counters and a symbolic checker show
-that nD-RoPE’s width change from 384 to 396 raises compute by about 6.06% and
-adds 5.69% attention MACs. A matched-width baseline explains 99.81% of the
-measured delta, while the live model contains **zero trainable frequency
-parameters**. This contradicts Appendix D.4’s exact “without introducing
-additional attention cost” and frequency-parameter attribution statements.
+Embedding](https://arxiv.org/abs/2606.12146)** by Boyang Li, Yulin Wu, Sizhe Xu,
+Nuoxian Huang, Zhonghang Yuan, Shangyi Guo, Shu Yang, and Takahiro Yabe.
+The paper is accepted to ICML 2026 and proposes a decomposition-free rotary
+position embedding based on unified n-dimensional position/frequency vectors
+and regular-simplex frequency directions.
 
-The cumulative result is:
+Repository: <https://github.com/MachineLearning-Nerd/icml26-nd-rope-translation-invariance>
 
-- Claims 1 and 2: **VERIFIED** by numerical certificates and pinned-code parity.
-- Claims 3 and 4: **BLOCKED** after four distinct routes; the exact trained
-  ImageNet checkpoints, predictions, and complete rotation protocol are absent.
-- Claim 5: **FALSIFIED** as written; the released 85.97-mIoU path is
-  ShapeNetPart, not ModelNet40, and SemanticKITTI code is absent.
-- Claim 6: **FALSIFIED** by exact released-model execution and attribution.
+## What this repository establishes
 
-The live judge score remains **6/12**. A conservative post-publication forecast
-is **6–8/12**; **8/12** is the best-supported possible score if the live judge
-accepts Claim 6. These are forecasts, not awarded points.
+The publication surface is a scoped audit, not a claim that every paper
+experiment was retrained. The current evidence is:
 
-Formal runs used local Apple M2 CPU compute and the locked `uv` environment.
-No GPU or paid Hugging Face cpu-upgrade was used. The ImageNet claims were not
-downscaled or replaced with proxies: they remain blocked because a smaller or
-random-model test would not satisfy their assumptions.
+| Paper claim | Status | What produces the status |
+| --- | --- | --- |
+| C1 — translation-invariant Fourier/Hilbert derivation | `VERIFIED` | Symbolic proof certificates, 7,680 rotary trials, 192 finite Fourier/Parseval cases, official-code parity, and an additive-position negative control. |
+| C2 — regular-simplex geometry and economy optimum | `VERIFIED` | Independent constructions for dimensions 2–32, 7,936 permutation trials, 64 economy optimizations, and malformed-simplex controls. |
+| C3 — ImageNet in-domain accuracy | `BLOCKED` | Four provenance/architecture/protocol/falsification routes complete; the pinned release has no trained checkpoint or 50,000-image prediction artifact. |
+| C4 — 30-degree ImageNet rotation robustness | `BLOCKED` | The exact fixed checkpoints, validation data, and complete rotation preprocessing contract are unavailable; no proxy model is promoted. |
+| C5 — cross-modal benchmark results | `FALSIFIED_AS_WRITTEN` | The released 85.97-mIoU path is ShapeNetPart part segmentation, not ModelNet40; SemanticKITTI implementation is absent. |
+| C6 — ablations and computational cost | `FALSIFIED_AS_WRITTEN` | At 2,048 points, the paper table has `theta=2` above `theta=100`; exact released image models also show higher attention cost caused by width 396 versus 384, not learned frequency parameters. |
 
-Read the [illustrated technical report](reports/ndrope-reproduction/report.md)
-or the [self-contained marimo tutorial](notebooks/ndrope_reproduction.py).
-The evaluator-visible package was published to the existing Hugging Face Space
-at exact revision
-[`458c9256e6b04cb2752c1fc20efe4094074a5283`](https://huggingface.co/spaces/DineshAI/YPXDQkU7XW/commit/458c9256e6b04cb2752c1fc20efe4094074a5283).
-Its [current verification page](release/hf-space-candidate/current/pages/current-verification.md)
-links every claim contract, executable verifier, inline result, raw output,
-independent checker, negative control, and limitation. The complete
-[publication and post-publication record](reports/ndrope-reproduction/release-record.md)
-records the immutable hashes and blind traversal. The notebook embeds the
-headline values so readers need not rerun expensive work.
+The repository-native publication gate reports `SCOPED_PASS`: all six claim
+rows are represented by checked-in contracts, executable producers, raw
+outputs, independent checks, and negative controls. The live evaluator snapshot
+stored in the evidence bundle is `6/12`, retrieved on 2026-07-23; it is a
+historical external result, not a forecast or a new score claim.
 
-## Experiment log
+## How each claim is produced
 
-Every formal node uses the exact inherited command
-`uv run --frozen python repro/src/run_campaign.py`.
-
-| Branch / experiment | Purpose or change | Exact run command | Assessment / outcome | Compute |
-| --- | --- | --- | --- | --- |
-| [`orx/baseline-judged-6-12-evidence`](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/baseline-judged-6-12-evidence) | Frozen judged evidence baseline | `uv run --frozen python repro/src/run_campaign.py` | C1/C2 verified; C5 falsified; regression passed | local Apple M2 CPU |
-| [`orx/claim-6-exact-table-contradiction`](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/claim-6-exact-table-contradiction) | Test exact Table 6–8 contracts | `uv run --frozen python repro/src/run_campaign.py` | C6 falsified by Table 7 at 2,048 points | local Apple M2 CPU |
-| [`orx/claims-3-4-route-1-artifact-provenance`](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/claims-3-4-route-1-artifact-provenance) | Complete release/provenance inventory | `uv run --frozen python repro/src/run_campaign.py` | No trained checkpoint or prediction evidence | local Apple M2 CPU |
-| [`orx/claims-3-4-route-2-architecture-contract`](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/claims-3-4-route-2-architecture-contract) | Recover comparison architecture | `uv run --frozen python repro/src/run_campaign.py` | Width 396/66 vs 384/64 confound | local Apple M2 CPU |
-| [`orx/claims-3-4-route-3-cross-table-protocol`](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/claims-3-4-route-3-cross-table-protocol) | Cross-table/protocol diagnostic | `uv run --frozen python repro/src/run_campaign.py` | Rank reversal found; not a valid falsification | local Apple M2 CPU |
-| [`orx/claims-3-4-route-4-falsification-search`](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/claims-3-4-route-4-falsification-search) | Mandatory assumption-preserving falsification route | `uv run --frozen python repro/src/run_campaign.py` | C3/C4 BLOCKED after four routes | local Apple M2 CPU |
-| [`orx/release-candidate-evidence-and-report`](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/release-candidate-evidence-and-report) | Cumulative evidence, report, notebook, release gate | `uv run --frozen python repro/src/run_campaign.py` | Passed 22 tests, 35 checks, and the additive release gate | local Apple M2 CPU |
-| [`orx/final-approval-candidate`](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/final-approval-candidate) | Package the exact successful evidence and rerun before approval | `uv run --frozen python repro/src/run_campaign.py` | Final approval candidate | local Apple M2 CPU |
-| [`orx/post-judge-c6-dynamic-flop-attribution`](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/post-judge-c6-dynamic-flop-attribution) | Execute exact Table 8 models and attribute compute/parameters | `uv run --frozen python repro/src/run_campaign.py` | C6 dynamic counterexample; 24 tests and 42 checks passed | local Apple M2 CPU |
-| [`orx/post-judge-c6-dual-profiler-release-candidate`](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/post-judge-c6-dual-profiler-release-candidate) | Independent dispatch counter and additive post-judge release package | `uv run --frozen python repro/src/run_campaign.py` | 24 tests, 44 checks, dual counters, five figures, and 31→39-file release gate passed | local Apple M2 CPU |
-| [`orx/post-judge-final-publication-package`](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/post-judge-final-publication-package) | Commit exact generated evidence and upload manifest | `uv run --frozen python repro/src/run_campaign.py` | Publication-package validation node | local Apple M2 CPU |
-| [`orx/evaluator-visible-current-verification`](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/evaluator-visible-current-verification) | Build canonical, fail-closed evaluator-visible claim bundle | `uv run --frozen python repro/src/run_campaign.py` | 24 tests, 52 checks, six mutation controls, and release visibility gate passed | local Apple M2 CPU |
-| [`orx/blind-review-candidate-package`](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/blind-review-candidate-package) | Freeze and independently rerun the exact candidate package | `uv run --frozen python repro/src/run_campaign.py` | Blind review opened 62 files from the canonical entrypoint; all six rows complete | local Apple M2 CPU |
-| `master` | Publication surface | Not run as an experiment (publication surface) | Mirrors revision `458c9256` and the approved reader-facing artifacts | N/A |
-
-## Reproduce
+The fixed campaign entry point is:
 
 ```bash
 uv sync --frozen
 uv run --frozen python repro/src/run_campaign.py
 ```
 
-The fixed runner regenerates raw CSV/JSON evidence, negative controls,
-independent checks, the five report figures, notebook validation, and the
-protected Hugging Face Space release gate. Claim contracts, methods, source
-audits, `EVAL.md` files, and raw outputs are under
-`.openresearch/artifacts/`.
+The campaign runs the following evidence paths:
 
-The paper source is pinned by URL, retrieval date, anchors, and SHA-256. The
-author implementation is pinned to
-[`BoyangL1/nD-RoPE@f2cae707`](https://github.com/BoyangL1/nD-RoPE/tree/f2cae70760806451f5e58be4b7e3dc4d0d856a1e).
-No paper-table number is presented as an independently trained reproduction
-unless its underlying experiment was actually run.
+1. `repro/src/run_claim1.py` evaluates translation invariance, relative
+   displacement, Parseval, Riesz-kernel preservation, and official-code parity.
+   `repro/src/run_symbolic_proofs.py` supplies the universal symbolic
+   certificates. Results are in `outputs/claim1/` and
+   `outputs/symbolic_proof_certificates.json`.
+2. `repro/src/run_claim2.py` independently constructs the regular simplex,
+   checks rank/centroid/Gram/tight-frame identities, tests permutation symmetry,
+   and minimizes the economy objective. Results are in `outputs/claim2/`.
+3. `repro/src/run_claim34.py` executes four fail-closed routes for C3 and C4:
+   artifact provenance, architecture/training contract, cross-table protocol,
+   and assumption-preserving falsification. Results and route history are in
+   `outputs/claim34/` and `.openresearch/artifacts/claim{3,4}/`.
+4. `repro/src/run_source_audit.py` inventories the pinned author release and
+   reads the actual dataset/metric entrypoints. Its output is
+   `outputs/source_audit/source_audit.json`.
+5. `repro/src/run_claim6.py` checks the exact table contracts and negative
+   controls. `repro/src/run_claim6_flops.py` executes the released 224×224
+   image models with two CPU operation counters and a matched-width control.
+   Results are in `outputs/claim6/`.
+6. `repro/src/verify_results.py` re-reads raw outputs and performs 52
+   fail-closed checks. `repro/src/run_verifier_failure_controls.py` mutates
+   one decisive value for each claim and confirms six nonzero verifier exits.
+
+No paper-table accuracy is described as independently reproduced when its
+checkpoint, predictions, or full protocol were not available. The C3/C4
+`BLOCKED` labels are deliberate evidence results, not missing work disguised as
+success.
+
+## Branch map
+
+The original `master`/`orx/*` experiment lineage is preserved as descriptive
+branches. The final names and roles are:
+
+| Final branch | Role | Outcome |
+| --- | --- | --- |
+| `baseline/judged-6-of-12` | Frozen judged baseline | C1/C2 verified and C5 falsified under the initial evidence surface. |
+| `audit/claim-6-table-contradiction` | Exact C6 table-contract audit | Found the 2,048-point `theta=2` counterexample. |
+| `audit/claims-3-4-artifact-provenance` | C3/C4 route 1 | No checkpoint, ImageNet labels, or predictions in the complete release. |
+| `audit/claims-3-4-architecture-contract` | C3/C4 route 2 | Width 396/66 versus 384/64 comparison confound identified. |
+| `audit/claims-3-4-cross-table` | C3/C4 route 3 | Table rank reversal found, but not a valid falsification without identical protocol evidence. |
+| `audit/claims-3-4-falsification` | C3/C4 route 4 | Exact assumption-preserving falsification search remains blocked. |
+| `release/cumulative-evidence` | First cumulative release candidate | Combined claim contracts and independent verification. |
+| `release/final-approval-candidate` | Pre-publication approval package | Frozen evidence package for review. |
+| `audit/post-judge-c6-flops` | Post-judge C6 dynamic profiler | Exact released-model FLOP/parameter attribution. |
+| `release/post-judge-c6-dual-profiler` | Independent dual-counter release | Profiler and dispatch-counter agreement. |
+| `release/post-judge-publication` | Post-judge publication package | Immutable evaluator bundle and upload manifest. |
+| `release/evaluator-visible-verification` | Canonical current verifier | Reader-facing six-claim evidence surface. |
+| `release/blind-review-candidate` | Blind-review candidate | Independently traversed candidate package. |
+| `main` | Current publication surface | This README, normalized metadata, source pins, and final gate. |
+
+The detailed old-to-new mapping, original tips, and final GitHub tips are in
+[`docs/BRANCH_AUDIT.md`](docs/BRANCH_AUDIT.md).
+
+## Source and evidence boundaries
+
+- Paper source and PDF are pinned under `sources/arxiv/`; their SHA-256 values
+  are recorded in [`sources.json`](sources.json).
+- The author implementation is vendored for audit under `vendor/nD-RoPE/` and
+  pinned to [`BoyangL1/nD-RoPE@f2cae707`](https://github.com/BoyangL1/nD-RoPE/tree/f2cae70760806451f5e58be4b7e3dc4d0d856a1e).
+- `release/hf-space-candidate/` is retained as an archival snapshot of the
+  evaluator-visible package. It contains historical Trackio-rendered pages;
+  it is not the canonical local experiment state and is not regenerated by
+  the local claim campaign.
+- No GPU, paid remote compute, private checkpoint, or private evaluator token
+  is included in this repository.
+
+See [`docs/CLAIM_EVIDENCE.md`](docs/CLAIM_EVIDENCE.md) for the claim-to-file
+matrix, [`docs/SOURCE_AUDIT.md`](docs/SOURCE_AUDIT.md) for provenance and
+limitations, and [`docs/PUBLICATION_GATE.md`](docs/PUBLICATION_GATE.md) for
+the reproducibility gate.
+
+## Citation
+
+```bibtex
+@inproceedings{li2026ndrope,
+  title     = {nD-RoPE: A Generalized RoPE for n-Dimensional Position Embedding},
+  author    = {Boyang Li and Yulin Wu and Sizhe Xu and Nuoxian Huang and Zhonghang Yuan and Shangyi Guo and Shu Yang and Takahiro Yabe},
+  booktitle = {Proceedings of the 43rd International Conference on Machine Learning},
+  year      = {2026},
+  eprint    = {2606.12146},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.LG}
+}
+```
+
+## Thank you
+
+Thank you to Boyang Li, Yulin Wu, Sizhe Xu, Nuoxian Huang, Zhonghang Yuan,
+Shangyi Guo, Shu Yang, and Takahiro Yabe for releasing the nD-RoPE code and
+for making the mathematical and implementation details available for public
+study. This audit is intended as a respectful, reproducible companion to the
+paper: disagreements are recorded with executable evidence and explicit
+limitations rather than presented as judgments about the authors.
+
+## License and attribution
+
+The vendored author implementation retains its upstream license and attribution
+files. This repository's scripts and audit documents are maintained by
+MachineLearning-Nerd; upstream code and the paper remain the authors' work.

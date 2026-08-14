@@ -159,15 +159,15 @@ was $0.
 
 The important lineage is:
 
-- [frozen 6/12 baseline](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/baseline-judged-6-12-evidence)
-- [Claim 6 exact table contradiction](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/claim-6-exact-table-contradiction)
-- [Claims 3/4 route 3 diagnostic](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/claims-3-4-route-3-cross-table-protocol)
-- [Claims 3/4 mandatory falsification route](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/claims-3-4-route-4-falsification-search)
-- [release candidate](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/release-candidate-evidence-and-report)
-- [final approval candidate](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/final-approval-candidate)
-- [post-judge dynamic FLOP attribution](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/post-judge-c6-dynamic-flop-attribution)
-- [post-judge dual-profiler release candidate](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/post-judge-c6-dual-profiler-release-candidate)
-- [post-judge final publication package](https://github.com/MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance/tree/orx/post-judge-final-publication-package)
+- [frozen 6/12 baseline](https://github.com/MachineLearning-Nerd/icml26-nd-rope-translation-invariance/tree/baseline/judged-6-of-12)
+- [Claim 6 exact table contradiction](https://github.com/MachineLearning-Nerd/icml26-nd-rope-translation-invariance/tree/audit/claim-6-table-contradiction)
+- [Claims 3/4 route 3 diagnostic](https://github.com/MachineLearning-Nerd/icml26-nd-rope-translation-invariance/tree/audit/claims-3-4-cross-table)
+- [Claims 3/4 mandatory falsification route](https://github.com/MachineLearning-Nerd/icml26-nd-rope-translation-invariance/tree/audit/claims-3-4-falsification)
+- [release candidate](https://github.com/MachineLearning-Nerd/icml26-nd-rope-translation-invariance/tree/release/cumulative-evidence)
+- [final approval candidate](https://github.com/MachineLearning-Nerd/icml26-nd-rope-translation-invariance/tree/release/final-approval-candidate)
+- [post-judge dynamic FLOP attribution](https://github.com/MachineLearning-Nerd/icml26-nd-rope-translation-invariance/tree/audit/post-judge-c6-flops)
+- [post-judge dual-profiler release candidate](https://github.com/MachineLearning-Nerd/icml26-nd-rope-translation-invariance/tree/release/post-judge-c6-dual-profiler)
+- [post-judge final publication package](https://github.com/MachineLearning-Nerd/icml26-nd-rope-translation-invariance/tree/release/post-judge-publication)
 
 The 2026-07-23 live judge score remains **6/12**. The post-judge evidence supports a conservative
 forecast of **6–8/12**, with **8/12** the best-supported possible result if the

@@ -1,16 +1,21 @@
-# Status — YPXDQkU7XW
+# nD-RoPE reproduction status
 
-- State: local evidence complete; Trackio/poster/publication preparation in progress.
-- Paper: nD-RoPE: A Generalized RoPE for n-Dimensional Position Embedding.
-- Author source: `BoyangL1/nD-RoPE@f2cae70760806451f5e58be4b7e3dc4d0d856a1e`.
-- C1: verified — 7,680 rotary cases and 192 Fourier/Parseval/Riesz cases.
-- C2: verified — 31 dimensions, 7,936 permutation trials, 64 economy optimizations, 15 controls.
-- C3: inconclusive — no checkpoint; released nD width 396 versus baseline width 384.
-- C4: inconclusive — no trained ImageNet checkpoint or local ImageNet validation data.
-- C5: falsified as written — released mIoU path is ShapeNetPart, not ModelNet40.
-- C6: partial — table arithmetic and source overhead audited; empirical ablations not rerun.
-- Verification: `20 passed`; independent verifier `all_checks_pass: true`.
-- Paid/remote compute: not authorized; none used.
-- GitHub: no repository created, committed, or pushed.
-- Public Space: existing legacy `DineshAI/YPXDQkU7XW`; do not publish until poster, bundle, validator, and secret scan pass.
-- Next: complete Posterly gates, register/upload the bundle, validate the exact legacy target, publish, verify hashes/tags/artifacts, then poll the official verdict and continue unresolved claims with a materially different route.
+Status is authoritative for the checked-in evidence on `main`.
+
+- Repository: `MachineLearning-Nerd/icml26-nd-rope-translation-invariance`
+- Former repository: `MachineLearning-Nerd/icml26-repro-YPXDQkU7XW-nd-rope-translation-invariance`
+- Paper: *nD-RoPE: A Generalized RoPE for n-Dimensional Position Embedding*
+- Paper identifier: arXiv `2606.12146`; OpenReview `YPXDQkU7XW`
+- Official implementation: `BoyangL1/nD-RoPE@f2cae70760806451f5e58be4b7e3dc4d0d856a1e`
+- Overall gate: `SCOPED_PASS` — six claim contracts, raw evidence, 52-check verifier, six mutation controls, and release gate pass.
+- Claim status: C1 `VERIFIED`; C2 `VERIFIED`; C3 `BLOCKED`; C4 `BLOCKED`; C5 `FALSIFIED_AS_WRITTEN`; C6 `FALSIFIED_AS_WRITTEN`.
+- External evaluator snapshot: `6/12`, retrieved 2026-07-23 and preserved in `.openresearch/artifacts/source/live_verdict.json`; no new score is claimed.
+- Compute boundary: local Apple M2 CPU; no GPU, paid remote compute, private checkpoint, or private token used.
+- Canonical command: `uv run --frozen python repro/src/run_campaign.py`
+- Canonical checker: `python repro/src/publication_gate.py --skip-producers`
+
+The exact claim boundaries and limitations are in
+[`docs/CLAIM_EVIDENCE.md`](docs/CLAIM_EVIDENCE.md) and
+[`docs/SOURCE_AUDIT.md`](docs/SOURCE_AUDIT.md). The evaluator bundle under
+`release/hf-space-candidate/` is archival and may contain historical Trackio
+markup; it is not the source of the local verdicts.

@@ -1,3 +1,6 @@
+This file is a historical publication snapshot. It records the live judged
+score observed on 2026-07-23 and is not a current score forecast.
+
 Previous live judged score: `6/12`
 
 Conservative projected score range after the published change: **6–8/12**
@@ -59,10 +62,10 @@ explicitly labeled corroboration.
 
 | Branch | Commit | Formal run | Outcome |
 | --- | --- | --- | --- |
-| `orx/evaluator-visible-current-verification` | `c3283858f04836356ce806a7b884a228c5cfb954` | `ea50d3f3-5c16-4bda-8915-188ff91cd847` | 24 tests, 52 checks, six mutation exits, and all release checks pass |
-| `orx/blind-review-candidate-package` | `f38ab2213b1f5f27caed0117326c1f5f3362be70` | `ec7b9c8c-144d-488d-ace5-f150a5aab5db` | Exact frozen candidate independently reruns and passes |
+| `release/evaluator-visible-verification` (formerly `orx/evaluator-visible-current-verification`) | `c3283858f04836356ce806a7b884a228c5cfb954` | `ea50d3f3-5c16-4bda-8915-188ff91cd847` | 24 tests, 52 checks, six mutation exits, and all release checks pass |
+| `release/blind-review-candidate` (formerly `orx/blind-review-candidate-package`) | `f38ab2213b1f5f27caed0117326c1f5f3362be70` | `ec7b9c8c-144d-488d-ace5-f150a5aab5db` | Exact frozen candidate independently reruns and passes |
 
-Winning publication branch: `orx/blind-review-candidate-package`.
+Winning publication branch: `release/blind-review-candidate`.
 
 Scientific evidence source SHA:
 `c3283858f04836356ce806a7b884a228c5cfb954`.

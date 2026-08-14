@@ -330,7 +330,7 @@ wheels = [
 ]
 
 [[package]]
-name = "icml26-repro-ypxdqku7xw-nd-rope-translation-invariance"
+name = "icml26-nd-rope-translation-invariance"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
