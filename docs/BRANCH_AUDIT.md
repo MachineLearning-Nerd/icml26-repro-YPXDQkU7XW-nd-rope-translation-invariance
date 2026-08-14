@@ -6,7 +6,7 @@ is silently merged into `main`.
 
 | Original branch | Original tip | Final branch | Final GitHub tip | Purpose |
 | --- | --- | --- | --- | --- |
-| `master` | `b9077dbb48340d844aac5c34a456eabe717bdbe1` | `main` | `defcefad9013b6ffda52acbc67205a3a3da0da2b` | Current publication surface. |
+| `master` | `b9077dbb48340d844aac5c34a456eabe717bdbe1` | `main` | current tip; see the GitHub branches API | Current publication surface. |
 | `orx/baseline-judged-6-12-evidence` | `7eb190b46cb1a360ab3db71c927ff30575d95b06` | `baseline/judged-6-of-12` | `e85521dbd435cd45da5de2ca3dd7a89c9959f508` | Frozen judged evidence baseline. |
 | `orx/claim-6-exact-table-contradiction` | `a3377365c2d963928d95a36e5492c8fd077bec2a` | `audit/claim-6-table-contradiction` | `1669fd028d17f85b0cec36ac7a875e5076cac935` | Exact C6 table-contract contradiction. |
 | `orx/claims-3-4-route-1-artifact-provenance` | `3551401b9142af0c722dab9c5e35091d0f300cb9` | `audit/claims-3-4-artifact-provenance` | `bdb64e2ff9a143d74ab1010bc0abfc187339c9bd` | Checkpoint and prediction provenance. |
